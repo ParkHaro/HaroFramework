@@ -1,7 +1,7 @@
 ---
 title: HaroFramework Specification
 version: 1.0.0
-layer: framework
+scope: framework
 created: 2025-10-25
 modified: 2025-10-25
 category: Project Management
@@ -37,19 +37,19 @@ HaroFramework is a reusable Unity game framework designed to serve as a foundati
 
 ## 2. Architecture
 
-### 2.1 2-Layer System
+### 2.1 2-Scope System
 
-The project uses a strict 2-layer architecture to separate framework concerns from game-specific implementation:
+The project uses a strict 2-scope architecture to separate framework concerns from game-specific implementation:
 
-#### Framework Layer (Independent)
+#### Framework Scope (Independent)
 - **Purpose**: Provides reusable game systems and utilities
 - **Independence**: Must not reference or depend on any game-specific code
 - **Location**: `.claude/framework/`
 - **Scope**: Core systems, tools, utilities, common patterns
 
-#### Game Layer (Framework-Dependent)
+#### Game Scope (Framework-Dependent)
 - **Purpose**: Implements specific game logic and content
-- **Dependency**: Can reference and use Framework layer
+- **Dependency**: Can reference and use Framework scope
 - **Location**: `.claude/games/[game-name]/`
 - **Scope**: Game-specific mechanics, content, design
 
@@ -66,7 +66,7 @@ The project uses a strict 2-layer architecture to separate framework concerns fr
 ```
 .claude/
 │
-├── framework/                        # 🔵 Framework Layer (Independent)
+├── framework/                        # 🔵 Framework Scope (Independent)
 │   ├── doc/                         # Framework documentation
 │   │   ├── guidelines/              # Development guidelines
 │   │   │   ├── documentation-rules.md
@@ -77,8 +77,8 @@ The project uses a strict 2-layer architecture to separate framework concerns fr
 │   │   ├── architecture/            # Architecture documentation
 │   │   │   ├── project-overview.md
 │   │   │   ├── project-overview_KOR.md
-│   │   │   ├── layer-system.md
-│   │   │   └── layer-system_KOR.md
+│   │   │   ├── scope-system.md
+│   │   │   └── scope-system_KOR.md
 │   │   │
 │   │   ├── systems/                 # Core systems documentation
 │   │   │   ├── player/
@@ -101,7 +101,7 @@ The project uses a strict 2-layer architecture to separate framework concerns fr
 │   └── scripts/                     # Framework-specific scripts
 │       └── README.md
 │
-├── games/                            # 🟢 Game Layer (Framework-Dependent)
+├── games/                            # 🟢 Game Scope (Framework-Dependent)
 │   ├── _template/                   # New game project template
 │   │   ├── doc/
 │   │   │   ├── design/              # Game design documents
@@ -120,7 +120,7 @@ The project uses a strict 2-layer architecture to separate framework concerns fr
 ├── scripts/                          # 🔧 Common automation scripts
 │   ├── doc_sync.py                  # Document synchronization
 │   ├── doc_validate.py              # Link/metadata validation
-│   ├── layer_validate.py            # Layer dependency validation
+│   ├── scope_validate.py            # Scope dependency validation
 │   ├── version_bump.py              # Version management
 │   └── README.md
 │
@@ -164,7 +164,7 @@ All documents must include YAML frontmatter metadata at the beginning.
 ---
 title: "Document Title"
 version: "1.0.0"                    # Semantic versioning
-layer: "framework|game"             # Layer classification
+scope: "framework|game"             # Scope classification
 created: "2025-10-25"               # Creation date
 modified: "2025-10-25"              # Last modification date
 paired_document: "filename_KOR.md"  # Paired document reference
@@ -181,11 +181,11 @@ child_documents: []                 # Child document links
 references: []                      # Referenced documents
 ```
 
-#### Layer Field Values
-- `framework`: Framework layer documents
-- `game`: Game layer documents
+#### Scope Field Values
+- `framework`: Framework scope documents
+- `game`: Game scope documents
 
-**Purpose**: The `layer` field enables automated validation to prevent forbidden cross-layer references.
+**Purpose**: The `scope` field enables automated validation to prevent forbidden cross-scope references.
 
 ### 3.3 Version Management
 
@@ -301,9 +301,9 @@ references:
 - Use `doc_validate.py` to verify all links are valid
 - Detect broken links
 - Ensure bidirectional linking where appropriate
-- Verify layer boundaries are respected
+- Verify scope boundaries are respected
 
-#### Layer-Aware Linking
+#### Scope-Aware Linking
 ```yaml
 # Framework document
 references:
@@ -349,11 +349,11 @@ python .claude/scripts/doc_validate.py              # Validate all
 python .claude/scripts/doc_validate.py [document]   # Validate one
 ```
 
-#### layer_validate.py - Layer Dependency Validation
-**Purpose**: Enforce layer dependency rules
+#### scope_validate.py - Scope Dependency Validation
+**Purpose**: Enforce scope dependency rules
 
 **Validation**:
-- Extract `layer` field from document metadata
+- Extract `scope` field from document metadata
 - Parse all links and references
 - Verify Framework documents don't reference Game documents
 - Report violations with file and line information
@@ -361,13 +361,13 @@ python .claude/scripts/doc_validate.py [document]   # Validate one
 **Algorithm**:
 ```python
 def validate_layer_dependency(doc_path):
-    layer = get_document_layer(doc_path)
+    scope = get_document_layer(doc_path)
     references = extract_all_references(doc_path)
 
     for ref in references:
         ref_layer = get_document_layer(ref)
 
-        if layer == "framework" and ref_layer == "game":
+        if scope == "framework" and ref_layer == "game":
             raise DependencyViolationError(
                 f"FORBIDDEN: Framework document '{doc_path}' "
                 f"cannot reference Game document '{ref}'"
@@ -378,8 +378,8 @@ def validate_layer_dependency(doc_path):
 
 **Usage**:
 ```bash
-python .claude/scripts/layer_validate.py              # Validate all
-python .claude/scripts/layer_validate.py [document]   # Validate one
+python .claude/scripts/scope_validate.py              # Validate all
+python .claude/scripts/scope_validate.py [document]   # Validate one
 ```
 
 #### version_bump.py - Version Management
@@ -400,12 +400,12 @@ python .claude/scripts/version_bump.py [document] patch
 
 ---
 
-## 4. Layer Dependency Rules
+## 4. Scope Dependency Rules
 
 ### 4.1 Absolute Rules
 
 #### ❌ FORBIDDEN: Framework → Game
-Framework layer MUST NOT:
+Framework scope MUST NOT:
 - Import or reference game-specific code
 - Link to game documentation
 - Contain game-specific logic or content
@@ -414,7 +414,7 @@ Framework layer MUST NOT:
 **Why**: Framework must remain reusable across all game projects.
 
 #### ✅ ALLOWED: Game → Framework
-Game layer CAN:
+Game scope CAN:
 - Import and use framework systems
 - Reference framework documentation
 - Extend framework classes
@@ -425,24 +425,24 @@ Game layer CAN:
 ### 4.2 Validation Methods
 
 #### Metadata-Based Validation
-Every document declares its layer:
+Every document declares its scope:
 ```yaml
-layer: framework  # or "game"
+scope: framework  # or "game"
 ```
 
 Validation script checks:
-1. Document's declared layer
-2. All referenced documents' layers
+1. Document's declared scope
+2. All referenced documents' scopes
 3. Enforce: `framework` cannot reference `game`
 
 #### Continuous Validation
-- Run `layer_validate.py` before commits
+- Run `scope_validate.py` before commits
 - Integrate into CI/CD pipeline (future)
 - Automated checks during document operations
 
 #### Manual Review
-- Code review checklist includes layer verification
-- Architecture reviews examine layer boundaries
+- Code review checklist includes scope verification
+- Architecture reviews examine scope boundaries
 - Documentation reviews verify proper categorization
 
 ---
@@ -570,7 +570,7 @@ Location: `.claude/framework/doc/systems/[category]/`
 
 All documents must pass:
 - ✅ `doc_validate.py` - Metadata and link validation
-- ✅ `layer_validate.py` - Layer dependency validation
+- ✅ `scope_validate.py` - Scope dependency validation
 - ✅ Paired document exists and synchronized
 - ✅ All links are valid and reachable
 
@@ -646,7 +646,7 @@ When context usage approaches 85%:
 - ✅ All documents bilingual (English + Korean)
 - ✅ All documents pass validation
 - ✅ Zero broken links
-- ✅ All layer dependencies respected
+- ✅ All scope dependencies respected
 
 ### 9.3 Quality Goals
 - ✅ No compiler warnings
@@ -680,12 +680,12 @@ When context usage approaches 85%:
 
 ## Appendix A: Glossary
 
-**Framework Layer**: The reusable, game-agnostic foundation layer
-**Game Layer**: Game-specific implementation that uses the framework
+**Framework Scope**: The reusable, game-agnostic foundation scope
+**Game Scope**: Game-specific implementation that uses the framework
 **Original Document**: English .md file
 **Korean Document**: Korean _KOR.md file
 **Bilingual Documentation**: Dual language documentation system
-**Layer Validation**: Automated checking of dependency rules
+**Scope Validation**: Automated checking of dependency rules
 **Paired Document**: The corresponding translation of a document
 
 ---
@@ -695,7 +695,7 @@ When context usage approaches 85%:
 ### Essential Commands
 ```bash
 # Validation
-python .claude/scripts/layer_validate.py
+python .claude/scripts/scope_validate.py
 python .claude/scripts/doc_validate.py
 
 # Documentation

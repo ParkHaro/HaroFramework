@@ -1,7 +1,7 @@
 ---
 title: HaroFramework TODO List
 version: 1.0.0
-layer: framework
+scope: framework
 created: 2025-10-25
 modified: 2025-10-25
 category: Project Management
@@ -39,8 +39,8 @@ status: active
 **Completed**: 2025-10-26
 
 **Completed Tasks**:
-- [x] Create `layer-system.md` + `_KOR.md`
-  - Document 2-layer architecture in detail
+- [x] Create `scope-system.md` + `_KOR.md`
+  - Document 2-scope architecture in detail
   - Explain dependency rules
   - Provide examples and anti-patterns
   - Location: `.claude/framework/doc/architecture/`
@@ -74,10 +74,10 @@ status: active
 **Completed**: 2025-10-26
 
 **Completed Tasks**:
-- [x] `layer_validate.py`
+- [x] `scope_validate.py`
   - Parse document metadata (YAML frontmatter)
   - Extract references and links from metadata
-  - Validate framework doesn't reference game layer
+  - Validate framework doesn't reference game scope
   - Generate detailed violation reports
   - Tested successfully - 26 documents validated
 
@@ -172,9 +172,9 @@ status: active
 **Completed**: 2025-10-26
 
 **Completed Updates**:
-- [x] Add 2-layer architecture explanation
-  - Clear explanation of Framework vs Game layers
-  - Visual representation of layer dependency rules
+- [x] Add 2-scope architecture explanation
+  - Clear explanation of Framework vs Game scopes
+  - Visual representation of scope dependency rules
   - "Why this matters" section added
 
 - [x] Update documentation paths
@@ -182,10 +182,10 @@ status: active
   - Framework SPEC/TODO: `.claude/framework/project/`
   - Complete file structure tree added
 
-- [x] Add layer dependency rules section
+- [x] Add scope dependency rules section
   - ✅ ALLOWED: Game → Framework
   - ❌ FORBIDDEN: Framework → Game
-  - Layer awareness checklist added
+  - Scope awareness checklist added
 
 - [x] Add context management protocol
   - Token optimization guidelines (read English only)
@@ -206,7 +206,7 @@ status: active
 **Success Criteria Met**:
 - ✅ CLAUDE.md accurately reflects new structure
 - ✅ All paths updated correctly
-- ✅ Layer rules clearly documented with examples
+- ✅ Scope rules clearly documented with examples
 - ✅ Context management protocol added
 - ✅ Token optimization guidelines added
 
@@ -218,7 +218,7 @@ status: active
 **Dependencies**: [P-002], [P-003], [P-004]
 
 **Validation Tasks**:
-- [ ] Run `layer_validate.py` on all documents
+- [ ] Run `scope_validate.py` on all documents
 - [ ] Run `doc_validate.py` on all documents
 - [ ] Verify all document pairs exist
 - [ ] Check link integrity across all documents
@@ -227,7 +227,7 @@ status: active
 - [ ] Test doc_sync.py workflow
 
 **Testing Scenarios**:
-- [ ] Create test document with invalid layer reference
+- [ ] Create test document with invalid scope reference
 - [ ] Create test document with missing metadata
 - [ ] Create test document with broken links
 - [ ] Verify scripts catch all violations
@@ -282,7 +282,7 @@ status: active
 
 **Achievements**:
 - ✅ Project requirements discussion and analysis
-- ✅ 2-Layer architecture design
+- ✅ 2-Scope architecture design
 - ✅ Folder structure finalization and creation
 - ✅ SPEC.md and SPEC_KOR.md creation
 - ✅ TODO.md and TODO_KOR.md creation
@@ -292,7 +292,7 @@ status: active
 **Completed**: 2025-10-25
 
 **Achievements**:
-- ✅ Defined 2-layer architecture (Framework + Game)
+- ✅ Defined 2-scope architecture (Framework + Game)
 - ✅ Established bilingual documentation rule
 - ✅ Designed metadata standard (YAML frontmatter)
 - ✅ Defined folder structure
@@ -319,10 +319,10 @@ status: active
 
 **Content**:
 - Project vision and goals
-- 2-layer architecture details
+- 2-scope architecture details
 - Documentation system rules
 - Version management
-- Layer dependency rules
+- Scope dependency rules
 - Core framework systems
 - Quality standards
 - Technology stack
@@ -401,7 +401,7 @@ status: active
 
 All primary setup tasks are complete:
 - ✅ SPEC and TODO documents created
-- ✅ Core documentation created (layer-system, documentation-rules)
+- ✅ Core documentation created (scope-system, documentation-rules)
 - ✅ Existing documents migrated with metadata
 - ✅ CLAUDE.md updated to reflect new structure
 - ✅ Automation scripts developed and tested (layer_validate, doc_validate, doc_sync, version_bump)
@@ -424,7 +424,7 @@ All primary setup tasks are complete:
 
 3. **Game Template Creation** ([F-001]) - FUTURE
    - Create template structure for first game project
-   - Demonstrate 2-layer architecture in practice
+   - Demonstrate 2-scope architecture in practice
 
 **Recommendation**: Documentation system ready for use. Await user direction for next development phase.
 
@@ -435,7 +435,7 @@ All primary setup tasks are complete:
 ## 📖 Notes
 
 ### Key Decisions Made
-- **2-Layer Architecture**: Strict separation ensures framework reusability
+- **2-Scope Architecture**: Strict separation ensures framework reusability
 - **Bilingual Documentation**: Supports both English and Korean readers
 - **Metadata Standard**: YAML frontmatter for all documents
 - **85% Context Rule**: Prevents overflow, ensures continuity

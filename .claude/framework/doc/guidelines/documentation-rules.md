@@ -1,7 +1,7 @@
 ---
 title: Documentation Standards and Rules
 version: 1.0.0
-layer: framework
+scope: framework
 created: 2025-10-25
 modified: 2025-10-25
 category: Guidelines
@@ -12,7 +12,7 @@ parent_documents:
 child_documents: []
 references:
   - ./coding-conventions.md
-  - ../architecture/layer-system.md
+  - ../architecture/scope-system.md
 status: approved
 ---
 
@@ -52,8 +52,8 @@ This is non-negotiable and applies to ALL documentation in the project.
 SPEC.md                          → Original (English)
 SPEC_KOR.md                      → Korean translation
 
-layer-system.md                  → Original (English)
-layer-system_KOR.md              → Korean translation
+scope-system.md                  → Original (English)
+scope-system_KOR.md              → Korean translation
 
 documentation-rules.md           → Original (English)
 documentation-rules_KOR.md       → Korean translation
@@ -94,7 +94,7 @@ When either document is updated:
 ---
 title: "Document Title"
 version: "1.0.0"
-layer: "framework|game"
+scope: "framework|game"
 created: "2025-10-25"
 modified: "2025-10-25"
 paired_document: "filename_KOR.md"  # or "filename.md"
@@ -119,7 +119,7 @@ All documents MUST include YAML frontmatter metadata at the beginning.
 ---
 title: "Document Title"
 version: "1.0.0"                    # Semantic versioning
-layer: "framework|game"             # Layer classification
+scope: "framework|game"             # Scope classification
 created: "YYYY-MM-DD"               # Creation date
 modified: "YYYY-MM-DD"              # Last modification date
 paired_document: "filename_KOR.md"  # Paired document filename
@@ -138,9 +138,9 @@ paired_document: "filename_KOR.md"  # Paired document filename
 - Start at `0.1.0` for drafts, `1.0.0` for approved
 - See Version Management section for rules
 
-**`layer`** (enum, required)
+**`scope`** (enum, required)
 - Values: `framework` or `game`
-- Determines layer boundary validation
+- Determines scope boundary validation
 - Must match document location
 
 **`created`** (date, required)
@@ -197,7 +197,7 @@ author: "Author Name"              # Document author
 
 **`references`** (array, optional)
 - Relative paths to referenced documents
-- Must respect layer boundaries
+- Must respect scope boundaries
 
 **`author`** (string, optional)
 - Document creator or maintainer
@@ -209,7 +209,7 @@ author: "Author Name"              # Document author
 ---
 title: "Player System Documentation"
 version: "1.2.0"
-layer: "framework"
+scope: "framework"
 created: "2025-10-20"
 modified: "2025-10-25"
 category: "Systems"
@@ -222,7 +222,7 @@ child_documents:
   - "player/input.md"
 references:
   - "../core/input-system.md"
-  - "../architecture/layer-system.md"
+  - "../architecture/scope-system.md"
 status: "approved"
 author: "Framework Team"
 ---
@@ -498,7 +498,7 @@ Script automatically:
 - Use lowercase with hyphens: `folder-name`
 - Keep names short but descriptive
 - Group related documents together
-- Separate by layer (framework vs game)
+- Separate by scope (framework vs game)
 
 ### 6.2 Framework Documentation Structure
 
@@ -514,8 +514,8 @@ Script automatically:
 │   ├── architecture/            # Architecture docs
 │   │   ├── project-overview.md
 │   │   ├── project-overview_KOR.md
-│   │   ├── layer-system.md
-│   │   └── layer-system_KOR.md
+│   │   ├── scope-system.md
+│   │   └── scope-system_KOR.md
 │   │
 │   ├── systems/                 # System-specific docs
 │   │   ├── player/
@@ -595,14 +595,14 @@ child_documents:
 
 references:
   - "../coding-conventions.md"     # Related documents
-  - "layer-system.md"
+  - "scope-system.md"
 ```
 
 ### 7.3 In-Document Linking
 
 **Relative Links**:
 ```markdown
-See [Layer System](../architecture/layer-system.md) for details.
+See [Scope System](../architecture/scope-system.md) for details.
 ```
 
 **Anchor Links** (same document):
@@ -615,9 +615,9 @@ See [Metadata Standards](#metadata-standards) section above.
 [Unity Documentation](https://docs.unity3d.com/)
 ```
 
-### 7.4 Layer-Aware Linking
+### 7.4 Scope-Aware Linking
 
-**Rule**: Respect layer boundaries in document links
+**Rule**: Respect scope boundaries in document links
 
 **Framework Documents**:
 ```yaml
@@ -628,7 +628,7 @@ references:
 
 # ❌ FORBIDDEN
 references:
-  - "../../games/game1/design.md"  # Cannot reference game layer
+  - "../../games/game1/design.md"  # Cannot reference game scope
 ```
 
 **Game Documents**:
@@ -648,7 +648,7 @@ references:
 Use `doc_validate.py` to verify:
 - All links are valid and reachable
 - No broken links exist
-- Layer boundaries are respected
+- Scope boundaries are respected
 - Bidirectional links are consistent
 
 ```bash
@@ -712,7 +712,7 @@ Summary: 2 document pairs checked
 - Link integrity (broken links)
 - Version consistency between pairs
 - Status field validity
-- Layer boundary violations
+- Scope boundary violations
 
 **Usage**:
 ```bash
@@ -740,7 +740,7 @@ Validating documents...
    Metadata: Valid
    Paired document: Found (SPEC_KOR.md)
    Links: 5 checked, all valid
-   Layer: framework
+   Scope: framework
 
 ❌ old-document.md
    Error: Missing 'version' in metadata
@@ -752,15 +752,15 @@ Summary: 10 documents validated
          1 failed
 ```
 
-### 8.3 layer_validate.py - Layer Dependency Validation
+### 8.3 scope_validate.py - Scope Dependency Validation
 
-**Purpose**: Enforce layer dependency rules (Framework → Game forbidden).
+**Purpose**: Enforce scope dependency rules (Framework → Game forbidden).
 
 **Algorithm**:
 ```python
 def validate_layer_dependency(doc_path):
-    # Extract document layer
-    layer = get_document_layer(doc_path)
+    # Extract document scope
+    scope = get_document_layer(doc_path)
 
     # Extract all references
     references = extract_all_references(doc_path)
@@ -769,7 +769,7 @@ def validate_layer_dependency(doc_path):
         ref_layer = get_document_layer(ref)
 
         # Enforce rule: framework cannot reference game
-        if layer == "framework" and ref_layer == "game":
+        if scope == "framework" and ref_layer == "game":
             raise DependencyViolationError(
                 f"FORBIDDEN: Framework document '{doc_path}' "
                 f"cannot reference Game document '{ref}'"
@@ -781,30 +781,30 @@ def validate_layer_dependency(doc_path):
 **Usage**:
 ```bash
 # Validate all documents
-python .claude/scripts/layer_validate.py
+python .claude/scripts/scope_validate.py
 
 # Validate specific document
-python .claude/scripts/layer_validate.py layer-system.md
+python .claude/scripts/scope_validate.py scope-system.md
 
-# Validate framework layer only
-python .claude/scripts/layer_validate.py --layer framework
+# Validate framework scope only
+python .claude/scripts/scope_validate.py --scope framework
 
-# Validate game layer only
-python .claude/scripts/layer_validate.py --layer game
+# Validate game scope only
+python .claude/scripts/scope_validate.py --scope game
 ```
 
 **Output Example**:
 ```
-Validating layer dependencies...
+Validating scope dependencies...
 
-✅ layer-system.md (framework)
-   References: 3 checked, all valid layers
+✅ scope-system.md (framework)
+   References: 3 checked, all valid scopes
 
 ❌ bad-framework-doc.md (framework)
    Error: References game document '../../games/mygame/design.md'
    Line 45: [See Game Design](../../games/mygame/design.md)
 
-   VIOLATION: Framework layer cannot reference Game layer
+   VIOLATION: Framework scope cannot reference Game scope
 
 Summary: 15 documents validated
          14 passed
@@ -983,7 +983,7 @@ if __name__ == "__main__":
 ---
 title: "[Document Title]"
 version: "0.1.0"
-layer: "framework|game"
+scope: "framework|game"
 created: "YYYY-MM-DD"
 modified: "YYYY-MM-DD"
 category: "[Category]"
@@ -1027,7 +1027,7 @@ status: "draft"
 ---
 title: ""
 version: "0.1.0"
-layer: ""
+scope: ""
 created: "YYYY-MM-DD"
 modified: "YYYY-MM-DD"
 category: ""
@@ -1072,7 +1072,7 @@ status: "draft"
 ## Related Documentation
 
 - [SPEC.md](../../project/SPEC.md) - Complete project specification
-- [layer-system.md](../architecture/layer-system.md) - Layer architecture
+- [scope-system.md](../architecture/scope-system.md) - Scope architecture
 - [coding-conventions.md](./coding-conventions.md) - Code standards
 
 ---

@@ -1,7 +1,7 @@
 ---
 title: "슬래시 명령 가이드"
 version: "1.0.0"
-layer: "framework"
+scope: "framework"
 created: "2025-10-25"
 modified: "2025-10-25"
 category: "Workflow"

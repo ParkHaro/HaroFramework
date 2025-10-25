@@ -1,7 +1,7 @@
 ---
 title: "프로젝트 개요"
 version: "1.0.0"
-layer: "framework"
+scope: "framework"
 created: "2025-10-25"
 modified: "2025-10-25"
 category: "Architecture"
@@ -13,7 +13,7 @@ child_documents: []
 references:
   - "../guidelines/coding-conventions_KOR.md"
   - "../workflow/development-workflow_KOR.md"
-  - "./layer-system_KOR.md"
+  - "./scope-system_KOR.md"
 status: "approved"
 ---
 
@@ -30,7 +30,7 @@ status: "approved"
 ## 핵심 기술
 
 ### Unity 패키지
-- **Input System** (1.14.2) - 플레이어 입력을 위한 새로운 Input System
+- **Input System** (1.14.2) - 플스코프 입력을 위한 새로운 Input System
 - **URP** (17.2.0) - 렌더링을 위한 Universal Render Pipeline
 - **AI Navigation** (2.0.9) - NavMesh 및 경로 찾기
 - **Timeline** (1.8.9) - 애니메이션 및 컷신
@@ -104,7 +104,7 @@ HaroFramework는 다음을 제공하는 것을 목표로 합니다:
 ## 관련 문서
 
 - [SPEC.md](../../project/SPEC_KOR.md) - 완전한 프로젝트 사양
-- [레이어 시스템](./layer-system_KOR.md) - 2-Layer 아키텍처
+- [스코프 시스템](./scope-system_KOR.md) - 2-Scope 아키텍처
 - [코딩 규칙](../guidelines/coding-conventions_KOR.md) - 코드 표준
 - [개발 워크플로우](../workflow/development-workflow_KOR.md) - 개발 프로세스
 

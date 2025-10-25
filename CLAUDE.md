@@ -2,14 +2,14 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## ⚠️ CRITICAL: 2-Layer Architecture
+## ⚠️ CRITICAL: 2-Scope Architecture
 
-HaroFramework uses a **strict 2-layer architecture**:
+HaroFramework uses a **strict 2-scope architecture**:
 
-- **Framework Layer** (`.claude/framework/`): Reusable game framework
-- **Game Layer** (`.claude/games/[game-name]/`): Specific game implementations
+- **Framework Scope** (`.claude/framework/`): Reusable game framework
+- **Game Scope** (`.claude/games/[game-name]/`): Specific game implementations
 
-### Layer Dependency Rules
+### Scope Dependency Rules
 ```
 ✅ ALLOWED:    Game → Framework (games can use framework)
 ❌ FORBIDDEN:  Framework → Game (framework CANNOT reference any game)
@@ -26,7 +26,7 @@ HaroFramework uses a **strict 2-layer architecture**:
 **Before starting any work, read these documents from `.claude/framework/doc/`:**
 
 #### Architecture & Guidelines (Read First)
-1. **`doc/architecture/layer-system.md`** - 2-layer architecture details and dependency rules
+1. **`doc/architecture/scope-system.md`** - 2-scope architecture details and dependency rules
 2. **`doc/architecture/project-overview.md`** - Project structure, architecture, and technologies
 3. **`doc/guidelines/coding-conventions.md`** - Naming conventions, code structure, Unity best practices
 4. **`doc/guidelines/documentation-rules.md`** - Bilingual documentation system and metadata standards
@@ -59,11 +59,11 @@ HaroFramework uses a **strict 2-layer architecture**:
 - **ALWAYS** read relevant documentation from `.claude/framework/doc/` before writing code
 - Follow conventions in `coding-conventions.md`
 - Reference `project-overview.md` for architecture decisions
-- Understand layer boundaries from `layer-system.md`
+- Understand scope boundaries from `scope-system.md`
 
-### 2. Layer Awareness
+### 2. Scope Awareness
 **When writing code, ask yourself**:
-- Am I in Framework or Game layer?
+- Am I in Framework or Game scope?
 - If Framework: Does this reference any game-specific code? (Must be NO)
 - If Game: Can I use Framework utilities? (Yes, encouraged)
 
@@ -155,8 +155,8 @@ Assets/Scripts/
 │   └── TODO_KOR.md                     # Korean translation
 ├── doc/
 │   ├── architecture/
-│   │   ├── layer-system.md             # 2-layer architecture
-│   │   ├── layer-system_KOR.md
+│   │   ├── scope-system.md             # 2-scope architecture
+│   │   ├── scope-system_KOR.md
 │   │   ├── project-overview.md         # Project structure
 │   │   └── project-overview_KOR.md
 │   ├── guidelines/
@@ -172,7 +172,7 @@ Assets/Scripts/
 │       ├── commands-guide.md           # Commands reference
 │       └── commands-guide_KOR.md
 └── scripts/                            # Automation scripts (TBD)
-    ├── layer_validate.py
+    ├── scope_validate.py
     ├── doc_validate.py
     ├── doc_sync.py
     └── version_bump.py
@@ -196,11 +196,11 @@ Assets/Scripts/
 ## Workflow Summary
 
 1. **Read** framework documentation from `.claude/framework/doc/`
-2. **Understand** which layer you're working in (Framework vs Game)
-3. **Plan** approach based on conventions and layer boundaries
+2. **Understand** which scope you're working in (Framework vs Game)
+3. **Plan** approach based on conventions and scope boundaries
 4. **Implement** following coding standards
 5. **Test** with `/test` command
-6. **Validate** code follows conventions and layer rules
+6. **Validate** code follows conventions and scope rules
 7. **Document** with XML comments and update .md files if needed
 
 ---
@@ -252,15 +252,15 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 3. Check `.claude/framework/doc/workflow/development-workflow.md`
 
 ### For Architecture Questions
-1. Check `.claude/framework/doc/architecture/layer-system.md`
+1. Check `.claude/framework/doc/architecture/scope-system.md`
 2. Check `.claude/framework/project/SPEC.md`
 3. Ask clarifying questions if requirements are unclear
 
-### For Layer Boundary Questions
+### For Scope Boundary Questions
 **Ask yourself**:
 - Is this Framework code trying to reference Game code? → **STOP, redesign**
 - Is this Game code using Framework utilities? → **OK, proceed**
-- Not sure which layer? → **Check `layer-system.md`**
+- Not sure which scope? → **Check `scope-system.md`**
 
 ---
 
@@ -286,5 +286,5 @@ If starting a new session:
 **Remember**:
 - This file contains only core rules and structure overview
 - **All detailed documentation is in `.claude/framework/doc/`** and must be consulted before starting work
-- **Respect the 2-layer architecture** - Framework NEVER references Game code
+- **Respect the 2-scope architecture** - Framework NEVER references Game code
 - **Read English documents only** to optimize context usage

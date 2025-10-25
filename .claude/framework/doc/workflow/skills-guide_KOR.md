@@ -1,7 +1,7 @@
 ---
 title: "스킬 가이드"
 version: "1.0.0"
-layer: "framework"
+scope: "framework"
 created: "2025-10-25"
 modified: "2025-10-25"
 category: "Workflow"
@@ -36,7 +36,7 @@ status: "approved"
 **목적**: 잘 구조화된 Unity MonoBehaviour 컴포넌트를 생성합니다.
 
 **다음을 요청할 때 자동 활성화:**
-- 플레이어 컨트롤러
+- 플스코프 컨트롤러
 - 적 AI 스크립트
 - 게임 매니저
 - UI 컨트롤러
@@ -204,7 +204,7 @@ MonoBehaviour 컴포넌트 생성
 
 ### 예시 비교
 
-**플레이어 컨트롤러를 만들고 싶을 때:**
+**플스코프 컨트롤러를 만들고 싶을 때:**
 
 **스킬 사용 (권장):**
 ```

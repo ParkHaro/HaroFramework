@@ -4,25 +4,25 @@ Automation scripts for maintaining HaroFramework documentation quality and consi
 
 ## Available Scripts
 
-### 1. `layer_validate.py` - Layer Dependency Validator
+### 1. `scope_validate.py` - Scope Dependency Validator
 
-Enforces the 2-layer architecture rule: Framework documents CANNOT reference Game documents.
+Enforces the 2-scope architecture rule: Framework documents CANNOT reference Game documents.
 
 **Usage:**
 ```bash
 # Basic validation
-python layer_validate.py
+python scope_validate.py
 
 # With detailed progress
-python layer_validate.py --verbose
+python scope_validate.py --verbose
 ```
 
 **What it checks:**
-- Framework documents don't reference Game layer documents
+- Framework documents don't reference Game scope documents
 - References in `references` and `parent_documents` fields
 
 **Exit codes:**
-- `0` - All layer dependencies are correct
+- `0` - All scope dependencies are correct
 - `1` - Violations found
 
 ---
@@ -44,7 +44,7 @@ python doc_validate.py --strict
 ```
 
 **What it checks:**
-- ✅ Required metadata fields (title, version, layer, etc.)
+- ✅ Required metadata fields (title, version, scope, etc.)
 - ✅ Version format (MAJOR.MINOR.PATCH)
 - ✅ Valid status values (draft/review/approved/deprecated/active)
 - ✅ Paired document existence
@@ -87,16 +87,16 @@ Increments document version numbers and updates modification dates.
 **Usage:**
 ```bash
 # Bump patch version (1.0.0 -> 1.0.1)
-python version_bump.py framework/doc/architecture/layer-system.md patch
+python version_bump.py framework/doc/architecture/scope-system.md patch
 
 # Bump minor version (1.0.0 -> 1.1.0)
-python version_bump.py framework/doc/architecture/layer-system.md minor
+python version_bump.py framework/doc/architecture/scope-system.md minor
 
 # Bump major version (1.0.0 -> 2.0.0)
-python version_bump.py framework/doc/architecture/layer-system.md major
+python version_bump.py framework/doc/architecture/scope-system.md major
 
 # Dry run (show changes without modifying)
-python version_bump.py framework/doc/architecture/layer-system.md patch --dry-run
+python version_bump.py framework/doc/architecture/scope-system.md patch --dry-run
 ```
 
 **What it does:**
@@ -116,8 +116,8 @@ python version_bump.py framework/doc/architecture/layer-system.md patch --dry-ru
 ### 1. Before Committing Changes
 
 ```bash
-# Validate layer dependencies
-python layer_validate.py
+# Validate scope dependencies
+python scope_validate.py
 
 # Validate metadata and links
 python doc_validate.py
@@ -132,7 +132,7 @@ All scripts should pass before committing.
 
 ```bash
 # Bump version (choose appropriate type)
-python version_bump.py framework/doc/architecture/layer-system.md patch
+python version_bump.py framework/doc/architecture/scope-system.md patch
 
 # Validate changes
 python doc_validate.py
@@ -145,7 +145,7 @@ Add to pre-commit hook or CI pipeline:
 #!/bin/bash
 cd .claude/framework/scripts
 
-python layer_validate.py || exit 1
+python scope_validate.py || exit 1
 python doc_validate.py --strict || exit 1
 python doc_sync.py || exit 1
 
@@ -167,7 +167,7 @@ echo "[+] All validation checks passed"
 ```
 .claude/framework/scripts/
 ├── README.md              # This file
-├── layer_validate.py      # Layer dependency validator
+├── scope_validate.py      # Scope dependency validator
 ├── doc_validate.py        # Metadata validator
 ├── doc_sync.py            # Synchronization checker
 └── version_bump.py        # Version management
@@ -183,7 +183,7 @@ echo "[+] All validation checks passed"
 
 ```bash
 cd /path/to/HaroFramework
-python .claude/framework/scripts/layer_validate.py
+python .claude/framework/scripts/scope_validate.py
 ```
 
 ### "No frontmatter found"
@@ -194,7 +194,7 @@ python .claude/framework/scripts/layer_validate.py
 ---
 title: "Document Title"
 version: "1.0.0"
-layer: "framework"
+scope: "framework"
 created: "2025-10-26"
 modified: "2025-10-26"
 category: "Architecture"
@@ -234,7 +234,7 @@ Planned improvements:
 ## Related Documentation
 
 - [Documentation Rules](../doc/guidelines/documentation-rules.md) - Documentation standards
-- [Layer System](../doc/architecture/layer-system.md) - 2-layer architecture
+- [Scope System](../doc/architecture/scope-system.md) - 2-scope architecture
 - [SPEC.md](../project/SPEC.md) - Project specification
 - [TODO.md](../project/TODO.md) - Task tracking
 

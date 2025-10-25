@@ -1,7 +1,7 @@
 ---
 title: HaroFramework 작업 목록
 version: 1.0.0
-layer: framework
+scope: framework
 created: 2025-10-25
 modified: 2025-10-25
 category: Project Management
@@ -39,8 +39,8 @@ status: active
 **완료일**: 2025-10-26
 
 **완료된 작업**:
-- [x] `layer-system.md` + `_KOR.md` 작성
-  - 2-Layer 아키텍처 상세 문서화
+- [x] `scope-system.md` + `_KOR.md` 작성
+  - 2-Scope 아키텍처 상세 문서화
   - 의존성 규칙 설명
   - 예제 및 안티패턴 제공
   - 위치: `.claude/framework/doc/architecture/`
@@ -74,10 +74,10 @@ status: active
 **완료일**: 2025-10-26
 
 **완료된 작업**:
-- [x] `layer_validate.py`
+- [x] `scope_validate.py`
   - 문서 메타데이터 파싱 (YAML frontmatter)
   - 메타데이터에서 참조 및 링크 추출
-  - Framework가 Game 레이어를 참조하지 않는지 검증
+  - Framework가 Game 스코프를 참조하지 않는지 검증
   - 상세한 위반 사항 보고서 생성
   - 테스트 성공 - 26개 문서 검증
 
@@ -172,9 +172,9 @@ status: active
 **완료일**: 2025-10-26
 
 **완료된 업데이트**:
-- [x] 2-Layer 아키텍처 설명 추가
-  - 프레임워크 vs 게임 레이어 명확한 설명
-  - 레이어 의존성 규칙 시각적 표현
+- [x] 2-Scope 아키텍처 설명 추가
+  - 프레임워크 vs 게임 스코프 명확한 설명
+  - 스코프 의존성 규칙 시각적 표현
   - "왜 중요한가" 섹션 추가
 
 - [x] 문서 경로 업데이트
@@ -182,10 +182,10 @@ status: active
   - 프레임워크 SPEC/TODO: `.claude/framework/project/`
   - 완전한 파일 구조 트리 추가
 
-- [x] 레이어 의존성 규칙 섹션 추가
+- [x] 스코프 의존성 규칙 섹션 추가
   - ✅ 허용: Game → Framework
   - ❌ 금지: Framework → Game
-  - 레이어 인식 체크리스트 추가
+  - 스코프 인식 체크리스트 추가
 
 - [x] Context 관리 프로토콜 추가
   - 토큰 최적화 가이드라인 (영문만 읽기)
@@ -206,7 +206,7 @@ status: active
 **달성된 성공 기준**:
 - ✅ CLAUDE.md가 새 구조를 정확히 반영
 - ✅ 모든 경로가 올바르게 업데이트됨
-- ✅ 레이어 규칙이 예시와 함께 명확히 문서화됨
+- ✅ 스코프 규칙이 예시와 함께 명확히 문서화됨
 - ✅ Context 관리 프로토콜 추가됨
 - ✅ 토큰 최적화 가이드라인 추가됨
 
@@ -218,7 +218,7 @@ status: active
 **의존성**: [P-002], [P-003], [P-004]
 
 **검증 작업**:
-- [ ] 모든 문서에 `layer_validate.py` 실행
+- [ ] 모든 문서에 `scope_validate.py` 실행
 - [ ] 모든 문서에 `doc_validate.py` 실행
 - [ ] 모든 문서 쌍 존재 확인
 - [ ] 모든 문서의 링크 무결성 확인
@@ -227,7 +227,7 @@ status: active
 - [ ] doc_sync.py 워크플로우 테스트
 
 **테스트 시나리오**:
-- [ ] 잘못된 레이어 참조가 있는 테스트 문서 생성
+- [ ] 잘못된 스코프 참조가 있는 테스트 문서 생성
 - [ ] 메타데이터가 누락된 테스트 문서 생성
 - [ ] 깨진 링크가 있는 테스트 문서 생성
 - [ ] 스크립트가 모든 위반 사항을 감지하는지 확인
@@ -282,7 +282,7 @@ status: active
 
 **성과**:
 - ✅ 프로젝트 요구사항 논의 및 분석
-- ✅ 2-Layer 아키텍처 설계
+- ✅ 2-Scope 아키텍처 설계
 - ✅ 폴더 구조 확정 및 생성
 - ✅ SPEC.md 및 SPEC_KOR.md 작성
 - ✅ TODO.md 및 TODO_KOR.md 작성
@@ -292,7 +292,7 @@ status: active
 **완료**: 2025-10-25
 
 **성과**:
-- ✅ 2-Layer 아키텍처 정의 (Framework + Game)
+- ✅ 2-Scope 아키텍처 정의 (Framework + Game)
 - ✅ 문서 이중화 규칙 수립
 - ✅ 메타데이터 표준 설계 (YAML frontmatter)
 - ✅ 폴더 구조 정의
@@ -319,10 +319,10 @@ status: active
 
 **내용**:
 - 프로젝트 비전 및 목표
-- 2-Layer 아키텍처 상세
+- 2-Scope 아키텍처 상세
 - 문서화 시스템 규칙
 - 버전 관리
-- 레이어 의존성 규칙
+- 스코프 의존성 규칙
 - 핵심 프레임워크 시스템
 - 품질 기준
 - 기술 스택
@@ -409,7 +409,7 @@ status: active
 
 모든 주요 구축 작업 완료:
 - ✅ SPEC 및 TODO 문서 생성
-- ✅ 핵심 문서 생성 (layer-system, documentation-rules)
+- ✅ 핵심 문서 생성 (scope-system, documentation-rules)
 - ✅ 기존 문서 메타데이터와 함께 마이그레이션
 - ✅ CLAUDE.md 새 구조 반영 업데이트
 - ✅ 자동화 스크립트 개발 및 테스트 완료 (layer_validate, doc_validate, doc_sync, version_bump)
@@ -432,7 +432,7 @@ status: active
 
 3. **게임 템플릿 생성** ([F-001]) - 향후
    - 첫 번째 게임 프로젝트를 위한 템플릿 구조 생성
-   - 실전에서 2-layer 아키텍처 입증
+   - 실전에서 2-scope 아키텍처 입증
 
 **권장 사항**: 문서화 시스템 사용 준비 완료. 다음 개발 단계에 대한 사용자 지시 대기.
 
@@ -443,7 +443,7 @@ status: active
 ## 📖 메모
 
 ### 주요 결정 사항
-- **2-Layer 아키텍처**: 엄격한 분리로 프레임워크 재사용성 보장
+- **2-Scope 아키텍처**: 엄격한 분리로 프레임워크 재사용성 보장
 - **문서 이중화**: 영어 및 한국어 독자 모두 지원
 - **메타데이터 표준**: 모든 문서에 YAML frontmatter
 - **85% Context 규칙**: 오버플로우 방지, 연속성 보장

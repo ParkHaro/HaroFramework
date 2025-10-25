@@ -1,7 +1,7 @@
 ---
 title: 문서화 표준 및 규칙
 version: 1.0.0
-layer: framework
+scope: framework
 created: 2025-10-25
 modified: 2025-10-25
 category: Guidelines
@@ -12,7 +12,7 @@ parent_documents:
 child_documents: []
 references:
   - ./coding-conventions_KOR.md
-  - ../architecture/layer-system_KOR.md
+  - ../architecture/scope-system_KOR.md
 status: approved
 ---
 
@@ -52,8 +52,8 @@ status: approved
 SPEC.md                          → 원본 (영어)
 SPEC_KOR.md                      → 한국어 번역
 
-layer-system.md                  → 원본 (영어)
-layer-system_KOR.md              → 한국어 번역
+scope-system.md                  → 원본 (영어)
+scope-system_KOR.md              → 한국어 번역
 
 documentation-rules.md           → 원본 (영어)
 documentation-rules_KOR.md       → 한국어 번역
@@ -94,7 +94,7 @@ documentation-rules_KOR.md       → 한국어 번역
 ---
 title: "Document Title"
 version: "1.0.0"
-layer: "framework|game"
+scope: "framework|game"
 created: "2025-10-25"
 modified: "2025-10-25"
 paired_document: "filename_KOR.md"  # or "filename.md"
@@ -119,7 +119,7 @@ Content here...
 ---
 title: "문서 제목"
 version: "1.0.0"                    # 시맨틱 버저닝
-layer: "framework|game"             # 레이어 분류
+scope: "framework|game"             # 스코프 분류
 created: "YYYY-MM-DD"               # 생성 날짜
 modified: "YYYY-MM-DD"              # 최종 수정 날짜
 paired_document: "filename_KOR.md"  # 쌍을 이루는 문서 파일명
@@ -138,9 +138,9 @@ paired_document: "filename_KOR.md"  # 쌍을 이루는 문서 파일명
 - 초안은 `0.1.0`, 승인된 문서는 `1.0.0`으로 시작
 - 버전 관리 섹션의 규칙 참조
 
-**`layer`** (열거형, 필수)
+**`scope`** (열거형, 필수)
 - 값: `framework` 또는 `game`
-- 레이어 경계 검증을 결정
+- 스코프 경계 검증을 결정
 - 문서 위치와 일치해야 함
 
 **`created`** (날짜, 필수)
@@ -197,7 +197,7 @@ author: "작성자 이름"              # 문서 작성자
 
 **`references`** (배열, 선택)
 - 참조된 문서로의 상대 경로
-- 레이어 경계를 준수해야 함
+- 스코프 경계를 준수해야 함
 
 **`author`** (문자열, 선택)
 - 문서 작성자 또는 관리자
@@ -207,9 +207,9 @@ author: "작성자 이름"              # 문서 작성자
 
 ```yaml
 ---
-title: "플레이어 시스템 문서"
+title: "플스코프 시스템 문서"
 version: "1.2.0"
-layer: "framework"
+scope: "framework"
 created: "2025-10-20"
 modified: "2025-10-25"
 category: "Systems"
@@ -222,7 +222,7 @@ child_documents:
   - "player/input.md"
 references:
   - "../core/input-system.md"
-  - "../architecture/layer-system.md"
+  - "../architecture/scope-system.md"
 status: "approved"
 author: "Framework Team"
 ---
@@ -498,7 +498,7 @@ python .claude/scripts/version_bump.py {document}.md patch
 - 소문자와 하이픈 사용: `folder-name`
 - 이름을 짧지만 설명적으로 유지
 - 관련 문서를 함께 그룹화
-- 레이어별로 분리 (framework vs game)
+- 스코프별로 분리 (framework vs game)
 
 ### 6.2 프레임워크 문서 구조
 
@@ -514,8 +514,8 @@ python .claude/scripts/version_bump.py {document}.md patch
 │   ├── architecture/            # 아키텍처 문서
 │   │   ├── project-overview.md
 │   │   ├── project-overview_KOR.md
-│   │   ├── layer-system.md
-│   │   └── layer-system_KOR.md
+│   │   ├── scope-system.md
+│   │   └── scope-system_KOR.md
 │   │
 │   ├── systems/                 # 시스템별 문서
 │   │   ├── player/
@@ -595,14 +595,14 @@ child_documents:
 
 references:
   - "../coding-conventions.md"     # 관련 문서
-  - "layer-system.md"
+  - "scope-system.md"
 ```
 
 ### 7.3 문서 내 링크
 
 **상대 링크**:
 ```markdown
-자세한 내용은 [레이어 시스템](../architecture/layer-system.md)을 참조하세요.
+자세한 내용은 [스코프 시스템](../architecture/scope-system.md)을 참조하세요.
 ```
 
 **앵커 링크** (같은 문서):
@@ -615,9 +615,9 @@ references:
 [Unity 문서](https://docs.unity3d.com/)
 ```
 
-### 7.4 레이어 인식 링크
+### 7.4 스코프 인식 링크
 
-**규칙**: 문서 링크에서 레이어 경계를 준수
+**규칙**: 문서 링크에서 스코프 경계를 준수
 
 **프레임워크 문서**:
 ```yaml
@@ -628,7 +628,7 @@ references:
 
 # ❌ 금지
 references:
-  - "../../games/game1/design.md"  # 게임 레이어를 참조할 수 없음
+  - "../../games/game1/design.md"  # 게임 스코프를 참조할 수 없음
 ```
 
 **게임 문서**:
@@ -648,7 +648,7 @@ references:
 `doc_validate.py`를 사용하여 검증:
 - 모든 링크가 유효하고 접근 가능한지
 - 깨진 링크가 없는지
-- 레이어 경계가 준수되는지
+- 스코프 경계가 준수되는지
 - 양방향 링크가 일관성 있는지
 
 ```bash
@@ -712,7 +712,7 @@ python .claude/scripts/doc_sync.py --list
 - 링크 무결성 (깨진 링크)
 - 쌍 간 버전 일관성
 - 상태 필드 유효성
-- 레이어 경계 위반
+- 스코프 경계 위반
 
 **사용법**:
 ```bash
@@ -740,7 +740,7 @@ python .claude/scripts/doc_validate.py --links-only
    메타데이터: 유효
    쌍을 이루는 문서: 발견됨 (SPEC_KOR.md)
    링크: 5개 확인됨, 모두 유효
-   레이어: framework
+   스코프: framework
 
 ❌ old-document.md
    오류: 메타데이터에 'version' 누락
@@ -752,15 +752,15 @@ python .claude/scripts/doc_validate.py --links-only
       1개 실패
 ```
 
-### 8.3 layer_validate.py - 레이어 의존성 검증
+### 8.3 scope_validate.py - 스코프 의존성 검증
 
-**목적**: 레이어 의존성 규칙 강제 (Framework → Game 금지).
+**목적**: 스코프 의존성 규칙 강제 (Framework → Game 금지).
 
 **알고리즘**:
 ```python
 def validate_layer_dependency(doc_path):
-    # 문서 레이어 추출
-    layer = get_document_layer(doc_path)
+    # 문서 스코프 추출
+    scope = get_document_layer(doc_path)
 
     # 모든 참조 추출
     references = extract_all_references(doc_path)
@@ -769,7 +769,7 @@ def validate_layer_dependency(doc_path):
         ref_layer = get_document_layer(ref)
 
         # 규칙 강제: framework는 game을 참조할 수 없음
-        if layer == "framework" and ref_layer == "game":
+        if scope == "framework" and ref_layer == "game":
             raise DependencyViolationError(
                 f"금지: Framework 문서 '{doc_path}'는 "
                 f"Game 문서 '{ref}'를 참조할 수 없습니다"
@@ -781,30 +781,30 @@ def validate_layer_dependency(doc_path):
 **사용법**:
 ```bash
 # 모든 문서 검증
-python .claude/scripts/layer_validate.py
+python .claude/scripts/scope_validate.py
 
 # 특정 문서 검증
-python .claude/scripts/layer_validate.py layer-system.md
+python .claude/scripts/scope_validate.py scope-system.md
 
-# framework 레이어만 검증
-python .claude/scripts/layer_validate.py --layer framework
+# framework 스코프만 검증
+python .claude/scripts/scope_validate.py --scope framework
 
-# game 레이어만 검증
-python .claude/scripts/layer_validate.py --layer game
+# game 스코프만 검증
+python .claude/scripts/scope_validate.py --scope game
 ```
 
 **출력 예시**:
 ```
-레이어 의존성 검증 중...
+스코프 의존성 검증 중...
 
-✅ layer-system.md (framework)
-   참조: 3개 확인됨, 모든 레이어 유효
+✅ scope-system.md (framework)
+   참조: 3개 확인됨, 모든 스코프 유효
 
 ❌ bad-framework-doc.md (framework)
    오류: game 문서 '../../games/mygame/design.md' 참조
    45번째 줄: [게임 디자인 보기](../../games/mygame/design.md)
 
-   위반: Framework 레이어는 Game 레이어를 참조할 수 없음
+   위반: Framework 스코프는 Game 스코프를 참조할 수 없음
 
 요약: 15개 문서 검증됨
       14개 통과
@@ -983,7 +983,7 @@ if __name__ == "__main__":
 ---
 title: "[문서 제목]"
 version: "0.1.0"
-layer: "framework|game"
+scope: "framework|game"
 created: "YYYY-MM-DD"
 modified: "YYYY-MM-DD"
 category: "[카테고리]"
@@ -1027,7 +1027,7 @@ status: "draft"
 ---
 title: ""
 version: "0.1.0"
-layer: ""
+scope: ""
 created: "YYYY-MM-DD"
 modified: "YYYY-MM-DD"
 category: ""
@@ -1072,7 +1072,7 @@ status: "draft"
 ## 관련 문서
 
 - [SPEC.md](../../project/SPEC.md) - 완전한 프로젝트 사양
-- [layer-system.md](../architecture/layer-system.md) - 레이어 아키텍처
+- [scope-system.md](../architecture/scope-system.md) - 스코프 아키텍처
 - [coding-conventions.md](./coding-conventions.md) - 코드 표준
 
 ---

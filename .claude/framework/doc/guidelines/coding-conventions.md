@@ -1,7 +1,7 @@
 ---
 title: "Coding Conventions"
 version: "1.0.0"
-layer: "framework"
+scope: "framework"
 created: "2025-10-25"
 modified: "2025-10-25"
 category: "Guidelines"
@@ -13,7 +13,7 @@ child_documents: []
 references:
   - "./documentation-rules.md"
   - "../architecture/project-overview.md"
-  - "../architecture/layer-system.md"
+  - "../architecture/scope-system.md"
 status: "approved"
 ---
 
@@ -375,7 +375,7 @@ Scripts/
 
 - [SPEC.md](../../project/SPEC.md) - Complete project specification
 - [Documentation Rules](./documentation-rules.md) - Documentation standards
-- [Layer System](../architecture/layer-system.md) - 2-Layer architecture
+- [Scope System](../architecture/scope-system.md) - 2-Scope architecture
 - [Project Overview](../architecture/project-overview.md) - Project structure
 
 ---

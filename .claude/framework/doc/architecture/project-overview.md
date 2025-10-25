@@ -1,7 +1,7 @@
 ---
 title: "Project Overview"
 version: "1.0.0"
-layer: "framework"
+scope: "framework"
 created: "2025-10-25"
 modified: "2025-10-25"
 category: "Architecture"
@@ -13,7 +13,7 @@ child_documents: []
 references:
   - "../guidelines/coding-conventions.md"
   - "../workflow/development-workflow.md"
-  - "./layer-system.md"
+  - "./scope-system.md"
 status: "approved"
 ---
 
@@ -104,7 +104,7 @@ Currently using Unity Editor for builds. Command-line builds to be configured.
 ## Related Documentation
 
 - [SPEC.md](../../project/SPEC.md) - Complete project specification
-- [Layer System](./layer-system.md) - 2-Layer architecture
+- [Scope System](./scope-system.md) - 2-Scope architecture
 - [Coding Conventions](../guidelines/coding-conventions.md) - Code standards
 - [Development Workflow](../workflow/development-workflow.md) - Development process
 

@@ -1,7 +1,7 @@
 ---
 title: "Development Workflow"
 version: "1.0.0"
-layer: "framework"
+scope: "framework"
 created: "2025-10-25"
 modified: "2025-10-25"
 category: "Workflow"
@@ -308,7 +308,7 @@ Requirements → Plan → Implement → Test → Review
 ### Branch Strategy
 ```
 main (stable)
-  └── feature/player-system (working)
+  └── feature/pscope-system (working)
   └── fix/health-bug (working)
 ```
 

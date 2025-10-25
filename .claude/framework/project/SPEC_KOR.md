@@ -1,7 +1,7 @@
 ---
 title: HaroFramework 명세서
 version: 1.0.0
-layer: framework
+scope: framework
 created: 2025-10-25
 modified: 2025-10-25
 category: Project Management
@@ -37,17 +37,17 @@ HaroFramework는 다양한 장르의 게임 개발을 위한 기반으로 설계
 
 ## 2. 아키텍처
 
-### 2.1 2-Layer 시스템
+### 2.1 2-Scope 시스템
 
-프로젝트는 프레임워크 관심사와 게임별 구현을 분리하기 위해 엄격한 2-Layer 아키텍처를 사용합니다:
+프로젝트는 프레임워크 관심사와 게임별 구현을 분리하기 위해 엄격한 2-Scope 아키텍처를 사용합니다:
 
-#### Framework Layer (독립적)
+#### Framework Scope (독립적)
 - **목적**: 재사용 가능한 게임 시스템 및 유틸리티 제공
 - **독립성**: 게임별 코드를 참조하거나 의존해서는 안 됨
 - **위치**: `.claude/framework/`
 - **범위**: 핵심 시스템, 도구, 유틸리티, 공통 패턴
 
-#### Game Layer (프레임워크 의존)
+#### Game Scope (프레임워크 의존)
 - **목적**: 특정 게임 로직 및 콘텐츠 구현
 - **의존성**: Framework Layer를 참조하고 사용 가능
 - **위치**: `.claude/games/[game-name]/`
@@ -66,7 +66,7 @@ HaroFramework는 다양한 장르의 게임 개발을 위한 기반으로 설계
 ```
 .claude/
 │
-├── framework/                        # 🔵 Framework Layer (독립적)
+├── framework/                        # 🔵 Framework Scope (독립적)
 │   ├── doc/                         # 프레임워크 문서
 │   │   ├── guidelines/              # 개발 가이드라인
 │   │   │   ├── documentation-rules.md
@@ -77,8 +77,8 @@ HaroFramework는 다양한 장르의 게임 개발을 위한 기반으로 설계
 │   │   ├── architecture/            # 아키텍처 문서
 │   │   │   ├── project-overview.md
 │   │   │   ├── project-overview_KOR.md
-│   │   │   ├── layer-system.md
-│   │   │   └── layer-system_KOR.md
+│   │   │   ├── scope-system.md
+│   │   │   └── scope-system_KOR.md
 │   │   │
 │   │   ├── systems/                 # 핵심 시스템 문서
 │   │   │   ├── player/
@@ -101,7 +101,7 @@ HaroFramework는 다양한 장르의 게임 개발을 위한 기반으로 설계
 │   └── scripts/                     # 프레임워크 전용 스크립트
 │       └── README.md
 │
-├── games/                            # 🟢 Game Layer (프레임워크 의존)
+├── games/                            # 🟢 Game Scope (프레임워크 의존)
 │   ├── _template/                   # 새 게임 프로젝트 템플릿
 │   │   ├── doc/
 │   │   │   ├── design/              # 게임 디자인 문서
@@ -120,7 +120,7 @@ HaroFramework는 다양한 장르의 게임 개발을 위한 기반으로 설계
 ├── scripts/                          # 🔧 공통 자동화 스크립트
 │   ├── doc_sync.py                  # 문서 동기화
 │   ├── doc_validate.py              # 링크/메타데이터 검증
-│   ├── layer_validate.py            # 레이어 의존성 검증
+│   ├── scope_validate.py            # 스코프 의존성 검증
 │   ├── version_bump.py              # 버전 관리
 │   └── README.md
 │
@@ -164,7 +164,7 @@ SPEC_KOR.md                  → 한글 번역
 ---
 title: "문서 제목"
 version: "1.0.0"                    # Semantic versioning
-layer: "framework|game"             # 레이어 분류
+scope: "framework|game"             # 스코프 분류
 created: "2025-10-25"               # 생성일
 modified: "2025-10-25"              # 최종 수정일
 paired_document: "filename_KOR.md"  # 쌍 문서 참조
@@ -181,11 +181,11 @@ child_documents: []                 # 하위 문서 링크
 references: []                      # 참조 문서
 ```
 
-#### Layer 필드 값
-- `framework`: 프레임워크 레이어 문서
-- `game`: 게임 레이어 문서
+#### Scope 필드 값
+- `framework`: 프레임워크 스코프 문서
+- `game`: 게임 스코프 문서
 
-**목적**: `layer` 필드는 금지된 크로스 레이어 참조를 방지하기 위한 자동 검증을 가능하게 합니다.
+**목적**: `scope` 필드는 금지된 크로스 스코프 참조를 방지하기 위한 자동 검증을 가능하게 합니다.
 
 ### 3.3 버전 관리
 
@@ -301,9 +301,9 @@ references:
 - `doc_validate.py`를 사용하여 모든 링크가 유효한지 확인
 - 깨진 링크 감지
 - 적절한 경우 양방향 링크 보장
-- 레이어 경계가 존중되는지 확인
+- 스코프 경계가 존중되는지 확인
 
-#### 레이어 인식 링크
+#### 스코프 인식 링크
 ```yaml
 # 프레임워크 문서
 references:
@@ -349,11 +349,11 @@ python .claude/scripts/doc_validate.py              # 전체 검증
 python .claude/scripts/doc_validate.py [문서]       # 하나만 검증
 ```
 
-#### layer_validate.py - 레이어 의존성 검증
-**목적**: 레이어 의존성 규칙 강제
+#### scope_validate.py - 스코프 의존성 검증
+**목적**: 스코프 의존성 규칙 강제
 
 **검증 항목**:
-- 문서 메타데이터에서 `layer` 필드 추출
+- 문서 메타데이터에서 `scope` 필드 추출
 - 모든 링크와 참조 파싱
 - 프레임워크 문서가 게임 문서를 참조하지 않는지 확인
 - 파일 및 라인 정보와 함께 위반 사항 보고
@@ -361,13 +361,13 @@ python .claude/scripts/doc_validate.py [문서]       # 하나만 검증
 **알고리즘**:
 ```python
 def validate_layer_dependency(doc_path):
-    layer = get_document_layer(doc_path)
+    scope = get_document_layer(doc_path)
     references = extract_all_references(doc_path)
 
     for ref in references:
         ref_layer = get_document_layer(ref)
 
-        if layer == "framework" and ref_layer == "game":
+        if scope == "framework" and ref_layer == "game":
             raise DependencyViolationError(
                 f"금지: 프레임워크 문서 '{doc_path}'는 "
                 f"게임 문서 '{ref}'를 참조할 수 없습니다"
@@ -378,8 +378,8 @@ def validate_layer_dependency(doc_path):
 
 **사용법**:
 ```bash
-python .claude/scripts/layer_validate.py              # 전체 검증
-python .claude/scripts/layer_validate.py [문서]       # 하나만 검증
+python .claude/scripts/scope_validate.py              # 전체 검증
+python .claude/scripts/scope_validate.py [문서]       # 하나만 검증
 ```
 
 #### version_bump.py - 버전 관리
@@ -400,12 +400,12 @@ python .claude/scripts/version_bump.py [문서] patch
 
 ---
 
-## 4. 레이어 의존성 규칙
+## 4. 스코프 의존성 규칙
 
 ### 4.1 절대 규칙
 
 #### ❌ 금지: Framework → Game
-프레임워크 레이어는 절대로:
+프레임워크 스코프는 절대로:
 - 게임별 코드를 임포트하거나 참조해서는 안 됨
 - 게임 문서에 링크해서는 안 됨
 - 게임별 로직이나 콘텐츠를 포함해서는 안 됨
@@ -414,7 +414,7 @@ python .claude/scripts/version_bump.py [문서] patch
 **이유**: 프레임워크는 모든 게임 프로젝트에서 재사용 가능해야 합니다.
 
 #### ✅ 허용: Game → Framework
-게임 레이어는:
+게임 스코프는:
 - 프레임워크 시스템을 임포트하고 사용할 수 있음
 - 프레임워크 문서를 참조할 수 있음
 - 프레임워크 클래스를 확장할 수 있음
@@ -425,24 +425,24 @@ python .claude/scripts/version_bump.py [문서] patch
 ### 4.2 검증 방법
 
 #### 메타데이터 기반 검증
-모든 문서는 자신의 레이어를 선언합니다:
+모든 문서는 자신의 스코프를 선언합니다:
 ```yaml
-layer: framework  # 또는 "game"
+scope: framework  # 또는 "game"
 ```
 
 검증 스크립트가 확인:
-1. 문서의 선언된 레이어
-2. 모든 참조된 문서의 레이어
+1. 문서의 선언된 스코프
+2. 모든 참조된 문서의 스코프
 3. 강제: `framework`는 `game`을 참조할 수 없음
 
 #### 지속적 검증
-- 커밋 전에 `layer_validate.py` 실행
+- 커밋 전에 `scope_validate.py` 실행
 - CI/CD 파이프라인에 통합 (향후)
 - 문서 작업 중 자동 검사
 
 #### 수동 검토
-- 코드 리뷰 체크리스트에 레이어 확인 포함
-- 아키텍처 리뷰에서 레이어 경계 검사
+- 코드 리뷰 체크리스트에 스코프 확인 포함
+- 아키텍처 리뷰에서 스코프 경계 검사
 - 문서 리뷰에서 적절한 분류 확인
 
 ---
@@ -461,9 +461,9 @@ layer: framework  # 또는 "game"
 - 오브젝트 풀링
 
 #### Player
-- 플레이어 컨트롤러
+- 플스코프 컨트롤러
 - 입력 처리
-- 플레이어 상태 관리
+- 플스코프 상태 관리
 - 카메라 컨트롤
 
 #### AI
@@ -570,7 +570,7 @@ layer: framework  # 또는 "game"
 
 모든 문서는 다음을 통과해야 합니다:
 - ✅ `doc_validate.py` - 메타데이터 및 링크 검증
-- ✅ `layer_validate.py` - 레이어 의존성 검증
+- ✅ `scope_validate.py` - 스코프 의존성 검증
 - ✅ 쌍 문서 존재 및 동기화
 - ✅ 모든 링크가 유효하고 접근 가능
 
@@ -646,7 +646,7 @@ Context 사용량이 85%에 근접할 때:
 - ✅ 모든 문서 이중 언어 (영어 + 한국어)
 - ✅ 모든 문서 검증 통과
 - ✅ 깨진 링크 제로
-- ✅ 모든 레이어 의존성 준수
+- ✅ 모든 스코프 의존성 준수
 
 ### 9.3 품질 목표
 - ✅ 컴파일러 경고 없음
@@ -659,7 +659,7 @@ Context 사용량이 85%에 근접할 때:
 ## 10. 향후 고려사항
 
 ### 10.1 계획된 기능
-- 멀티플레이어 프레임워크 기반
+- 멀티플스코프 프레임워크 기반
 - 고급 AI 유틸리티
 - 절차적 생성 도구
 - 모바일 플랫폼 지원
@@ -680,12 +680,12 @@ Context 사용량이 85%에 근접할 때:
 
 ## 부록 A: 용어집
 
-**Framework Layer**: 재사용 가능한, 게임에 구애받지 않는 기반 레이어
-**Game Layer**: 프레임워크를 사용하는 게임별 구현
+**Framework Scope**: 재사용 가능한, 게임에 구애받지 않는 기반 스코프
+**Game Scope**: 프레임워크를 사용하는 게임별 구현
 **원본문서**: 영어 .md 파일
 **한글문서**: 한국어 _KOR.md 파일
 **문서 이중화**: 이중 언어 문서화 시스템
-**레이어 검증**: 의존성 규칙의 자동 검사
+**스코프 검증**: 의존성 규칙의 자동 검사
 **쌍 문서**: 문서의 해당 번역
 
 ---
@@ -695,7 +695,7 @@ Context 사용량이 85%에 근접할 때:
 ### 필수 명령어
 ```bash
 # 검증
-python .claude/scripts/layer_validate.py
+python .claude/scripts/scope_validate.py
 python .claude/scripts/doc_validate.py
 
 # 문서화

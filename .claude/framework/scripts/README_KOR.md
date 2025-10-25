@@ -4,25 +4,25 @@ HaroFramework 문서 품질 및 일관성 유지를 위한 자동화 스크립�
 
 ## 사용 가능한 스크립트
 
-### 1. `layer_validate.py` - 레이어 의존성 검증기
+### 1. `scope_validate.py` - 스코프 의존성 검증기
 
-2-layer 아키텍처 규칙 강제: Framework 문서는 Game 문서를 참조할 수 없습니다.
+2-scope 아키텍처 규칙 강제: Framework 문서는 Game 문서를 참조할 수 없습니다.
 
 **사용법:**
 ```bash
 # 기본 검증
-python layer_validate.py
+python scope_validate.py
 
 # 상세 진행 상황 표시
-python layer_validate.py --verbose
+python scope_validate.py --verbose
 ```
 
 **검증 항목:**
-- Framework 문서가 Game 레이어 문서를 참조하지 않는지 확인
+- Framework 문서가 Game 스코프 문서를 참조하지 않는지 확인
 - `references`와 `parent_documents` 필드의 참조 검사
 
 **종료 코드:**
-- `0` - 모든 레이어 의존성이 올바름
+- `0` - 모든 스코프 의존성이 올바름
 - `1` - 위반 사항 발견
 
 ---
@@ -44,7 +44,7 @@ python doc_validate.py --strict
 ```
 
 **검증 항목:**
-- ✅ 필수 메타데이터 필드 (title, version, layer 등)
+- ✅ 필수 메타데이터 필드 (title, version, scope 등)
 - ✅ 버전 형식 (MAJOR.MINOR.PATCH)
 - ✅ 유효한 상태 값 (draft/review/approved/deprecated/active)
 - ✅ 쌍 문서 존재 여부
@@ -87,16 +87,16 @@ python doc_sync.py --verbose
 **사용법:**
 ```bash
 # patch 버전 증가 (1.0.0 -> 1.0.1)
-python version_bump.py framework/doc/architecture/layer-system.md patch
+python version_bump.py framework/doc/architecture/scope-system.md patch
 
 # minor 버전 증가 (1.0.0 -> 1.1.0)
-python version_bump.py framework/doc/architecture/layer-system.md minor
+python version_bump.py framework/doc/architecture/scope-system.md minor
 
 # major 버전 증가 (1.0.0 -> 2.0.0)
-python version_bump.py framework/doc/architecture/layer-system.md major
+python version_bump.py framework/doc/architecture/scope-system.md major
 
 # 드라이 런 (수정 없이 변경 사항 표시)
-python version_bump.py framework/doc/architecture/layer-system.md patch --dry-run
+python version_bump.py framework/doc/architecture/scope-system.md patch --dry-run
 ```
 
 **기능:**
@@ -116,8 +116,8 @@ python version_bump.py framework/doc/architecture/layer-system.md patch --dry-ru
 ### 1. 변경 사항 커밋 전
 
 ```bash
-# 레이어 의존성 검증
-python layer_validate.py
+# 스코프 의존성 검증
+python scope_validate.py
 
 # 메타데이터 및 링크 검증
 python doc_validate.py
@@ -132,7 +132,7 @@ python doc_sync.py
 
 ```bash
 # 버전 증가 (적절한 타입 선택)
-python version_bump.py framework/doc/architecture/layer-system.md patch
+python version_bump.py framework/doc/architecture/scope-system.md patch
 
 # 변경 사항 검증
 python doc_validate.py
@@ -145,7 +145,7 @@ pre-commit hook 또는 CI 파이프라인에 추가:
 #!/bin/bash
 cd .claude/framework/scripts
 
-python layer_validate.py || exit 1
+python scope_validate.py || exit 1
 python doc_validate.py --strict || exit 1
 python doc_sync.py || exit 1
 
@@ -168,7 +168,7 @@ echo "[+] 모든 검증 검사 통과"
 .claude/framework/scripts/
 ├── README.md              # 영문 가이드
 ├── README_KOR.md          # 이 파일 (한글 가이드)
-├── layer_validate.py      # 레이어 의존성 검증기
+├── scope_validate.py      # 스코프 의존성 검증기
 ├── doc_validate.py        # 메타데이터 검증기
 ├── doc_sync.py            # 동기화 검사기
 └── version_bump.py        # 버전 관리 도구
@@ -184,7 +184,7 @@ echo "[+] 모든 검증 검사 통과"
 
 ```bash
 cd /path/to/HaroFramework
-python .claude/framework/scripts/layer_validate.py
+python .claude/framework/scripts/scope_validate.py
 ```
 
 ### "frontmatter를 찾을 수 없습니다"
@@ -195,7 +195,7 @@ python .claude/framework/scripts/layer_validate.py
 ---
 title: "문서 제목"
 version: "1.0.0"
-layer: "framework"
+scope: "framework"
 created: "2025-10-26"
 modified: "2025-10-26"
 category: "Architecture"
@@ -235,7 +235,7 @@ status: "approved"
 ## 관련 문서
 
 - [문서화 규칙](../doc/guidelines/documentation-rules_KOR.md) - 문서화 표준
-- [레이어 시스템](../doc/architecture/layer-system_KOR.md) - 2-layer 아키텍처
+- [스코프 시스템](../doc/architecture/scope-system_KOR.md) - 2-scope 아키텍처
 - [SPEC_KOR.md](../project/SPEC_KOR.md) - 프로젝트 명세
 - [TODO_KOR.md](../project/TODO_KOR.md) - 작업 추적
 

@@ -1,7 +1,7 @@
 ---
 title: "개발 워크플로우"
 version: "1.0.0"
-layer: "framework"
+scope: "framework"
 created: "2025-10-25"
 modified: "2025-10-25"
 category: "Workflow"
@@ -127,7 +127,7 @@ public IEnumerator Player_OnDamage_TriggersAnimation()
 **코드 문서화:**
 ```csharp
 /// <summary>
-/// 플레이어 체력과 데미지를 관리합니다.
+/// 플스코프 체력과 데미지를 관리합니다.
 /// </summary>
 public class HealthSystem
 {
@@ -308,7 +308,7 @@ git diff
 ### 브랜치 전략
 ```
 main (안정)
-  └── feature/player-system (작업중)
+  └── feature/pscope-system (작업중)
   └── fix/health-bug (작업중)
 ```
 

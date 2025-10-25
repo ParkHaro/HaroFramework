@@ -1,7 +1,7 @@
 ---
 title: "코딩 규칙"
 version: "1.0.0"
-layer: "framework"
+scope: "framework"
 created: "2025-10-25"
 modified: "2025-10-25"
 category: "Guidelines"
@@ -13,7 +13,7 @@ child_documents: []
 references:
   - "./documentation-rules_KOR.md"
   - "../architecture/project-overview_KOR.md"
-  - "../architecture/layer-system_KOR.md"
+  - "../architecture/scope-system_KOR.md"
 status: "approved"
 ---
 
@@ -31,7 +31,7 @@ namespace HaroFramework.[Category]
 
 ### 카테고리
 - **Core**: 프레임워크 핵심 시스템
-- **Player**: 플레이어 관련 시스템
+- **Player**: 플스코프 관련 시스템
 - **AI**: 인공지능
 - **UI**: 사용자 인터페이스
 - **Audio**: 오디오 시스템
@@ -375,7 +375,7 @@ Scripts/
 
 - [SPEC.md](../../project/SPEC_KOR.md) - 완전한 프로젝트 사양
 - [문서화 규칙](./documentation-rules_KOR.md) - 문서화 표준
-- [레이어 시스템](../architecture/layer-system_KOR.md) - 2-Layer 아키텍처
+- [스코프 시스템](../architecture/scope-system_KOR.md) - 2-Scope 아키텍처
 - [프로젝트 개요](../architecture/project-overview_KOR.md) - 프로젝트 구조
 
 ---
