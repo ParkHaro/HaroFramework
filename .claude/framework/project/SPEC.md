@@ -1,9 +1,9 @@
 ---
 title: HaroFramework Specification
-version: 1.0.0
+version: 2.0.0
 scope: framework
 created: 2025-10-25
-modified: 2025-10-25
+modified: 2025-10-26
 category: Project Management
 tags: [specification, architecture, documentation]
 paired_document: SPEC_KOR.md
@@ -449,71 +449,630 @@ Validation script checks:
 
 ## 5. Core Framework Systems
 
-### 5.1 System Categories
+### 5.1 Framework Architecture (6-Layer System)
 
-The framework is organized into the following core system categories:
+The framework implements a strict 6-layer architecture with clear separation of concerns and dependency rules.
 
-#### Core
-- Framework initialization
-- Service locator
-- Dependency injection
-- Event system
-- Object pooling
+```
+┌─────────────────────────────────────────────────────────┐
+│                    Gameplay Layer                        │
+│                   (게임플레이 영역)                        │
+│  - MonoBehaviour 기반 게임 오브젝트                        │
+│  - 실제 게임 로직 (Player, Enemy, UI 등)                  │
+│  - BaseGameplay 상속                                     │
+└─────────────────────────────────────────────────────────┘
+                         ↓ 사용
+┌─────────────────────────────────────────────────────────┐
+│                     Service Layer                        │
+│                    (서비스 영역)                          │
+│  - 게임 특화 기능 구현                                     │
+│  - Interface 구체 구현                                    │
+│  - BaseService 상속                                      │
+└─────────────────────────────────────────────────────────┘
+                         ↓ 구현
+┌─────────────────────────────────────────────────────────┐
+│                   Interface Layer                        │
+│                  (인터페이스 영역)                         │
+│  - 게임 특화 계약 정의                                     │
+│  - IService 인터페이스                                    │
+│  - 의존성 역전 (DIP) 적용                                 │
+└─────────────────────────────────────────────────────────┘
+                         ↓ 참조
+┌─────────────────────────────────────────────────────────┐
+│                      Core Layer                          │
+│                     (코어 영역)                           │
+│  - 범용 모듈 (UI, Audio, Scene, Network)                 │
+│  - BaseModule 상속                                       │
+│  - 게임 독립적 (모든 프로젝트 공통)                         │
+└─────────────────────────────────────────────────────────┘
+       ↓ 사용                                  ↑ 접근
+┌──────────────────────┐      ┌──────────────────────────┐
+│    Domain Layer      │      │      Data Layer          │
+│   (도메인 영역)       │←─────│     (데이터 영역)         │
+│  - 데이터 가공/계산   │ 접근 │  - 순수 데이터 구조       │
+│  - 게임 룰 적용       │      │  - BaseData 상속         │
+│  - BaseDomain 상속    │      │  - 직렬화 가능           │
+└──────────────────────┘      └──────────────────────────┘
+```
 
-#### Player
-- Player controller
-- Input handling
-- Player state management
-- Camera control
+#### Dependency Flow
+```
+Gameplay → Service → Interface → Core
+   ↓          ↓
+   └─→ Domain ←─┘
+          ↓
+        Data
+```
 
-#### AI
-- Behavior trees
-- Pathfinding
-- Decision making
-- AI state machines
+**Principles**:
+- Upper layers can reference lower layers
+- Lower layers cannot reference upper layers
+- Data layer is accessible from all layers (read-only)
 
-#### UI
-- Menu system
-- HUD elements
-- Dialog system
-- UI utilities
+#### Communication Methods
+```
+1. Direct Reference
+   Gameplay → Service
+   Service → Domain
+   Domain → Data
 
-#### Audio
-- Audio manager
-- Sound effects
-- Music system
-- Audio mixing
+2. Event Bus (EventBus)
+   All layers ↔ All layers
+   - Loose coupling
+   - Asynchronous processing
 
-#### Gameplay
-- Game rules
-- Game state management
-- Progression system
-- Achievement system
+3. Service Locator
+   Gameplay/Service → Registered Services
+   - Centralized management
+   - Runtime resolution
+```
 
-#### Systems
-- Save/load system
-- Settings management
-- Localization
-- Analytics integration
+### 5.2 Layer Details
 
-#### Data
-- ScriptableObject definitions
-- Data containers
-- Configuration assets
+#### 5.2.1 Data Layer (데이터 계층)
 
-#### Editor
-- Custom inspectors
-- Editor windows
-- Build tools
-- Development utilities
+**Purpose**:
+- Define pure data structures
+- Support serialization/deserialization
+- No game logic
 
-#### Tests
-- Unit tests
-- Integration tests
-- Play mode tests
-- Test utilities
+**Structure**:
+```csharp
+// Required: Inherit BaseData
+public abstract class BaseData
+{
+    public int Id { get; set; }
 
-### 5.2 System Documentation
+    // All data must provide validation logic
+    public abstract bool Validate();
+}
+```
+
+**Rules**:
+1. **No Logic**: Data storage and representation only
+2. **Immutability**: Use read-only properties when possible
+3. **Serializable**: Must have `[System.Serializable]` attribute
+4. **Naming**: `{Entity}Data` (e.g., `PlayerData`, `ItemData`)
+
+**Example**:
+```csharp
+[System.Serializable]
+public class ItemData : BaseData
+{
+    public string Name;
+    public int BaseAttack;
+    public float BaseCritRate;
+    public ItemType Type;
+
+    public override bool Validate()
+    {
+        return !string.IsNullOrEmpty(Name) && BaseAttack >= 0;
+    }
+}
+```
+
+**Location**: `Assets/Data/Base/` (BaseData), `Assets/Data/Game/` (Game-specific)
+
+---
+
+#### 5.2.2 Domain Layer (도메인 계층)
+
+**Purpose**:
+- Process and transform raw data
+- Apply game formulas (stats, damage, probability)
+- Data caching and optimization
+- Implement business rules
+
+**Structure**:
+```csharp
+// Required: Inherit BaseDomain<TData>
+public abstract class BaseDomain<TData> where TData : BaseData
+{
+    public abstract string DomainName { get; }
+
+    // Load → Process → Cache
+    public abstract void LoadData();
+
+    // Query by ID
+    public abstract TData GetData(int id);
+
+    // Query all
+    public abstract IEnumerable<TData> GetAllData();
+}
+```
+
+**Rules**:
+1. **Data-Centric**: Read and process Data only
+2. **Stateless**: No game state in Domain
+3. **Caching**: Prevent repeated calculations
+4. **Naming**: `{Entity}Domain` (e.g., `ItemDomain`, `PlayerStatsDomain`)
+
+**Example**:
+```csharp
+public class ItemDomain : BaseDomain<ItemData>
+{
+    public override string DomainName => "Item";
+
+    private Dictionary<int, ItemData> itemCache = new Dictionary<int, ItemData>();
+
+    public override void LoadData()
+    {
+        // Load from JSON/CSV
+        var json = Resources.Load<TextAsset>("Data/Items");
+        var itemList = JsonUtility.FromJson<ItemDataList>(json.text);
+
+        foreach (var item in itemList.items)
+        {
+            // Apply game rules
+            item.FinalAttack = CalculateFinalAttack(item);
+            itemCache[item.Id] = item;
+        }
+    }
+
+    private int CalculateFinalAttack(ItemData item)
+    {
+        return item.BaseAttack + (item.Level * 5);
+    }
+}
+```
+
+**Location**: `Assets/Scripts/Domain/Base/` (BaseDomain), `Assets/Scripts/Domain/{GameName}/` (Game-specific)
+
+---
+
+#### 5.2.3 Core Layer (코어 계층)
+
+**Purpose**:
+- Provide game-independent universal modules
+- Manage module lifecycle
+- Framework foundation systems
+
+**Structure**:
+```csharp
+// Required: Inherit BaseModule
+public abstract class BaseModule : IModule
+{
+    public abstract string ModuleName { get; }
+    public abstract int Priority { get; }
+
+    // Lifecycle methods
+    public void Initialize();
+    public void Shutdown();
+    public void OnUpdate();
+}
+```
+
+**Default Modules**:
+
+| Module | Responsibility | Priority |
+|--------|----------------|----------|
+| **DataModule** | Data load/save | 5 |
+| **UIModule** | UI canvas management | 10 |
+| **SceneModule** | Scene transition | 15 |
+| **AudioModule** | BGM/SFX playback | 20 |
+| **NetworkModule** | Network communication | 25 |
+
+**Rules**:
+1. **Game-Independent**: No specific game logic
+2. **Independent**: No dependency on other modules
+3. **Optional**: Can be enabled/disabled via config
+4. **Naming**: `{Feature}Module` (e.g., `UIModule`, `AudioModule`)
+
+**Location**: `Assets/Framework/Core/Modules/`
+
+---
+
+#### 5.2.4 Interface Layer (인터페이스 계층)
+
+**Purpose**:
+- Define game-specific contracts
+- Apply Dependency Inversion Principle (DIP)
+- Enforce Service implementation
+
+**Structure**:
+```csharp
+// Required: Inherit IService
+public interface IService
+{
+    string ServiceName { get; }
+    void Initialize();
+    void Dispose();
+}
+
+// Game-specific interface
+public interface IInventorySystem : IService
+{
+    bool AddItem(int itemId, int count);
+    bool RemoveItem(int itemId, int count);
+    ItemData GetItem(int itemId);
+}
+```
+
+**Rules**:
+1. **Contract Definition**: Exclude implementation details
+2. **IService Inheritance**: All interfaces implement IService
+3. **Naming**: `I{System}System` (e.g., `IInventorySystem`, `IBattleSystem`)
+
+**Location**: `Assets/Scripts/Interface/`
+
+---
+
+#### 5.2.5 Service Layer (서비스 계층)
+
+**Purpose**:
+- Concrete implementation of interfaces
+- Game business logic processing
+- Combine Core modules + Domain
+
+**Structure**:
+```csharp
+// Required: Inherit BaseService + Implement Interface
+public abstract class BaseService : IService
+{
+    public abstract string ServiceName { get; }
+
+    protected EventBus EventBus { get; }
+    protected ServiceLocator Services { get; }
+
+    public virtual void Initialize();
+    public virtual void Dispose();
+}
+```
+
+**Rules**:
+1. **Interface Implementation**: Must define interface first
+2. **BaseService Inheritance**: Unified lifecycle
+3. **State Management**: Manage game state in Service
+4. **Event Publishing**: Publish events on state changes
+5. **Naming**: `{System}Service` (e.g., `InventoryService`, `BattleService`)
+
+**Example**:
+```csharp
+public class InventoryService : BaseService, IInventorySystem
+{
+    public override string ServiceName => "Inventory";
+
+    private ItemDomain itemDomain;
+    private Dictionary<int, int> inventory = new Dictionary<int, int>();
+
+    protected override void InitializeService()
+    {
+        itemDomain = DataManager.Instance.GetDomain<ItemDomain>();
+    }
+
+    public bool AddItem(int itemId, int count)
+    {
+        var itemData = itemDomain.GetData(itemId);
+        if (itemData == null) return false;
+
+        if (!inventory.ContainsKey(itemId))
+            inventory[itemId] = 0;
+
+        inventory[itemId] += count;
+
+        EventBus.Publish(new ItemAddedEvent
+        {
+            ItemId = itemId,
+            Count = count
+        });
+
+        return true;
+    }
+}
+```
+
+**Location**: `Assets/Scripts/Service/Base/` (BaseService), `Assets/Scripts/Service/{GameName}/` (Game-specific)
+
+---
+
+#### 5.2.6 Gameplay Layer (게임플레이 계층)
+
+**Purpose**:
+- Implement actual game logic
+- MonoBehaviour-based
+- Use Service composition
+
+**Structure**:
+```csharp
+// Required: Inherit BaseGameplay
+public abstract class BaseGameplay : MonoBehaviour
+{
+    protected ServiceLocator Services { get; }
+    protected EventBus EventBus { get; }
+
+    // Unity lifecycle integration
+    protected virtual void Awake() { }
+    protected virtual void Start() { }
+    protected virtual void OnDestroy() { }
+
+    // Framework lifecycle
+    protected abstract void RegisterServices();
+    protected abstract void SubscribeEvents();
+    protected abstract void UnsubscribeEvents();
+}
+```
+
+**Rules**:
+1. **BaseGameplay Inheritance**: Unified lifecycle
+2. **Service Usage**: Call services, don't implement logic directly
+3. **Event Subscription**: Subscribe to necessary events only
+4. **Naming**: `{Entity}Controller` (e.g., `PlayerController`, `EnemyController`)
+
+**Location**: `Assets/Scripts/Gameplay/Base/` (BaseGameplay), `Assets/Scripts/Gameplay/{GameName}/` (Game-specific)
+
+### 5.3 Core Systems
+
+#### 5.3.1 EventBus (이벤트 버스)
+
+**Purpose**:
+- Loose coupling between layers
+- Asynchronous communication
+- Event-driven architecture
+
+**Interface**:
+```csharp
+public interface IGameEvent { }
+
+public class EventBus : Singleton<EventBus>
+{
+    // Subscribe to event
+    public void Subscribe<T>(Action<T> handler) where T : IGameEvent;
+
+    // Unsubscribe from event
+    public void Unsubscribe<T>(Action<T> handler) where T : IGameEvent;
+
+    // Publish event
+    public void Publish<T>(T gameEvent) where T : IGameEvent;
+}
+```
+
+**Usage Rules**:
+1. **Event Definition**: Implement IGameEvent
+2. **Naming**: `{Action}{Entity}Event` (e.g., `ItemAddedEvent`, `PlayerDamagedEvent`)
+3. **Data**: Include only necessary information
+4. **Immutability**: Use readonly fields when possible
+
+**Location**: `Assets/Framework/Core/Systems/EventBus.cs`
+
+---
+
+#### 5.3.2 ServiceLocator (서비스 로케이터)
+
+**Purpose**:
+- Centralized service management
+- Runtime dependency resolution
+- Global access provision
+
+**Interface**:
+```csharp
+public class ServiceLocator : Singleton<ServiceLocator>
+{
+    // Register service
+    public void Register<T>(T service) where T : IService;
+
+    // Get service
+    public T Get<T>() where T : IService;
+
+    // Check service existence
+    public bool Has<T>() where T : IService;
+
+    // Clear all services
+    public void Clear();
+}
+```
+
+**Usage Rules**:
+1. **Initialization**: Register all services at game start
+2. **Single Instance**: Each service registered once
+3. **Type-Based**: Register/query by interface type
+
+**Location**: `Assets/Framework/Core/Systems/ServiceLocator.cs`
+
+---
+
+#### 5.3.3 DataManager (데이터 관리자)
+
+**Purpose**:
+- Centralized Domain management
+- Unified data loading
+- Domain access provision
+
+**Interface**:
+```csharp
+public class DataManager : Singleton<DataManager>
+{
+    // Register Domain
+    public void RegisterDomain<TDomain, TData>(TDomain domain)
+        where TDomain : BaseDomain<TData>
+        where TData : BaseData;
+
+    // Get Domain
+    public TDomain GetDomain<TDomain>() where TDomain : class;
+
+    // Load all Domains
+    public void LoadAllDomains();
+}
+```
+
+**Location**: `Assets/Framework/Core/Systems/DataManager.cs`
+
+### 5.4 Lifecycle Management
+
+#### Initialization Flow
+```
+[Application Start]
+       ↓
+┌─────────────────┐
+│ FrameworkManager│
+│    .Awake()     │
+└─────────────────┘
+       ↓
+┌─────────────────┐
+│  Core Systems   │
+│  - EventBus     │
+│  - ServiceLocator│
+│  - DataManager  │
+└─────────────────┘
+       ↓
+┌─────────────────┐
+│ Modules Init    │
+│ (Priority Order)│
+└─────────────────┘
+       ↓
+┌─────────────────┐
+│ Domain LoadData │
+└─────────────────┘
+       ↓
+┌─────────────────┐
+│Services Register│
+└─────────────────┘
+       ↓
+┌─────────────────┐
+│ Scene Load      │
+└─────────────────┘
+       ↓
+┌─────────────────┐
+│Gameplay Init    │
+└─────────────────┘
+       ↓
+   [Game Ready]
+```
+
+#### Shutdown Flow
+```
+[Application Quit]
+       ↓
+┌─────────────────┐
+│ Gameplay        │
+│  .OnDestroy()   │
+└─────────────────┘
+       ↓
+┌─────────────────┐
+│ Services        │
+│  .Dispose()     │
+└─────────────────┘
+       ↓
+┌─────────────────┐
+│ Modules         │
+│  .Shutdown()    │
+│  (Reverse Order)│
+└─────────────────┘
+       ↓
+   [Clean Exit]
+```
+
+#### Module Priority System
+- **DataModule**: Priority 5 (First to initialize)
+- **UIModule**: Priority 10
+- **SceneModule**: Priority 15
+- **AudioModule**: Priority 20
+- **NetworkModule**: Priority 25 (Last to initialize)
+- **Shutdown**: Reverse order (25 → 20 → 15 → 10 → 5)
+
+### 5.5 Folder Structure Template
+
+```
+Assets/
+├── Framework/                  # Common (Reusable)
+│   ├── Core/
+│   │   ├── Base/
+│   │   │   ├── IModule.cs
+│   │   │   ├── IService.cs
+│   │   │   ├── BaseModule.cs
+│   │   │   ├── BaseService.cs
+│   │   │   ├── BaseDomain.cs
+│   │   │   └── BaseGameplay.cs
+│   │   ├── Modules/
+│   │   │   ├── UIModule.cs
+│   │   │   ├── AudioModule.cs
+│   │   │   ├── SceneModule.cs
+│   │   │   └── NetworkModule.cs
+│   │   ├── Systems/
+│   │   │   ├── EventBus.cs
+│   │   │   ├── ServiceLocator.cs
+│   │   │   ├── DataManager.cs
+│   │   │   └── FrameworkLogger.cs
+│   │   ├── FrameworkManager.cs
+│   │   └── FrameworkConfig.cs
+│   └── Data/
+│       └── Base/
+│           └── BaseData.cs
+│
+├── Data/                       # Game Data
+│   ├── Json/
+│   │   ├── Items.json
+│   │   └── Stages.json
+│   └── CSV/
+│       └── Monsters.csv
+│
+└── Scripts/                    # Game-Specific
+    ├── {GameName}/
+    │   ├── Data/
+    │   │   ├── ItemData.cs
+    │   │   ├── PlayerData.cs
+    │   │   └── StageData.cs
+    │   ├── Domain/
+    │   │   ├── ItemDomain.cs
+    │   │   ├── PlayerStatsDomain.cs
+    │   │   └── StageDomain.cs
+    │   ├── Interface/
+    │   │   ├── IInventorySystem.cs
+    │   │   ├── IBattleSystem.cs
+    │   │   └── IQuestSystem.cs
+    │   ├── Service/
+    │   │   ├── InventoryService.cs
+    │   │   ├── BattleService.cs
+    │   │   └── QuestService.cs
+    │   └── Gameplay/
+    │       ├── Player/
+    │       │   └── PlayerController.cs
+    │       ├── Enemy/
+    │       │   └── EnemyAI.cs
+    │       └── Stage/
+    │           └── StageManager.cs
+    │
+    └── Common/                 # Game Common
+        ├── Events/
+        │   ├── ItemAddedEvent.cs
+        │   ├── PlayerDamagedEvent.cs
+        │   └── StageCompletedEvent.cs
+        └── Utilities/
+            └── Singleton.cs
+```
+
+### 5.6 Naming Conventions
+
+| Layer | Suffix | Example |
+|-------|--------|---------|
+| Data | Data | `ItemData`, `PlayerData` |
+| Domain | Domain | `ItemDomain`, `StatsDomain` |
+| Interface | System | `IInventorySystem`, `IBattleSystem` |
+| Service | Service | `InventoryService`, `BattleService` |
+| Gameplay | Controller / Manager | `PlayerController`, `StageManager` |
+| Event | Event | `ItemAddedEvent`, `StageCompletedEvent` |
+| Module | Module | `UIModule`, `AudioModule` |
+
+### 5.7 System Documentation Requirements
 
 Each core system must have:
 - Architecture overview

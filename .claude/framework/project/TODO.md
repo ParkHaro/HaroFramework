@@ -1,9 +1,9 @@
 ---
 title: HaroFramework TODO List
-version: 1.0.0
+version: 2.0.0
 scope: framework
 created: 2025-10-25
-modified: 2025-10-25
+modified: 2025-10-26
 category: Project Management
 tags: [todo, tasks, tracking]
 paired_document: TODO_KOR.md
@@ -18,8 +18,8 @@ status: active
 
 ## Session Information
 - **Session Started**: 2025-10-25
-- **Current Phase**: Automation Scripts Complete
-- **Context Usage**: ~62% (125K/200K tokens)
+- **Current Phase**: Documentation System Complete, Framework Implementation Ready
+- **Context Usage**: ~50% (100K/200K tokens)
 - **Last Updated**: 2025-10-26
 
 ---
@@ -272,6 +272,266 @@ status: active
 - [ ] Set up pre-commit validation
 - [ ] Set up CI pipeline for documentation validation
 - [ ] Automated testing for scripts
+
+---
+
+## 🏗️ Framework Implementation (Phase 1-4)
+
+### [F-004] Phase 1: Core Foundation
+**Priority**: HIGH
+**Estimated Effort**: 8-12 hours
+**Status**: PENDING
+
+**Objective**: Implement the foundational base classes and core systems that all other layers depend on.
+
+**Tasks**:
+
+#### Framework/Core/Base/ (Base Classes)
+- [ ] `IModule.cs` - Module interface
+  - Define module lifecycle (Initialize, Shutdown, OnUpdate)
+  - Define module metadata (Name, Priority)
+- [ ] `IService.cs` - Service interface
+  - Define service lifecycle (Initialize, Dispose)
+  - Define service identification (ServiceName)
+- [ ] `BaseModule.cs` - Module base class
+  - Implement IModule interface
+  - Provide lifecycle management template
+  - Add priority-based initialization
+- [ ] `BaseService.cs` - Service base class
+  - Implement IService interface
+  - Provide EventBus and ServiceLocator access
+  - Add service lifecycle template
+- [ ] `BaseDomain.cs` - Domain base class
+  - Generic data type support `BaseDomain<TData>`
+  - Define data loading/caching interface
+  - Add data query methods (GetData, GetAllData)
+- [ ] `BaseGameplay.cs` - Gameplay base class
+  - Extend MonoBehaviour
+  - Provide ServiceLocator and EventBus access
+  - Define framework lifecycle integration
+- [ ] `BaseData.cs` - Data base class
+  - Add Id property
+  - Add Validate() abstract method
+  - Support serialization
+
+#### Framework/Core/Systems/ (Core Systems)
+- [ ] `Singleton.cs` - Singleton pattern
+  - Thread-safe implementation
+  - Unity-aware lifecycle management
+- [ ] `EventBus.cs` - Event bus system
+  - Subscribe/Unsubscribe/Publish methods
+  - Generic event type support
+  - Event queue for async processing
+- [ ] `ServiceLocator.cs` - Service locator
+  - Register/Get/Has/Clear methods
+  - Type-based service resolution
+  - Error handling for missing services
+- [ ] `DataManager.cs` - Data manager
+  - Domain registration and management
+  - LoadAllDomains() implementation
+  - Domain lifecycle management
+- [ ] `FrameworkLogger.cs` - Logging system
+  - Log levels (Info, Warning, Error)
+  - Conditional compilation for Release builds
+  - Integration with Unity Debug
+
+#### Framework/Core/ (Framework Manager)
+- [ ] `FrameworkManager.cs` - Framework manager
+  - Singleton MonoBehaviour
+  - Core systems initialization
+  - Module lifecycle orchestration
+  - DontDestroyOnLoad management
+- [ ] `FrameworkConfig.cs` - Configuration ScriptableObject
+  - Module enable/disable toggles
+  - Priority configuration
+  - Framework settings
+
+**Success Criteria**:
+- All base classes compiled without errors
+- Core systems functional and tested
+- FrameworkManager successfully initializes all systems
+- Documentation added for all public APIs
+
+---
+
+### [F-005] Phase 2: Core Modules
+**Priority**: HIGH
+**Estimated Effort**: 10-15 hours
+**Status**: PENDING
+**Dependencies**: [F-004]
+
+**Objective**: Implement game-independent modules that provide common functionality.
+
+**Tasks**:
+
+#### Framework/Core/Modules/
+- [ ] `UIModule.cs` - UI management module
+  - Canvas management (Find, Create, Destroy)
+  - UI layer organization
+  - Screen space/World space canvas support
+  - UI pooling for performance
+- [ ] `AudioModule.cs` - Audio management module
+  - BGM playback (Play, Stop, Pause, Resume)
+  - SFX playback with pooling
+  - Volume control (Master, BGM, SFX)
+  - Audio fade in/out support
+- [ ] `SceneModule.cs` - Scene management module
+  - Scene loading (Sync/Async)
+  - Loading screen integration
+  - Scene transition effects
+  - Additive scene support
+- [ ] `NetworkModule.cs` - Network module (Optional)
+  - Basic network connectivity
+  - Request/Response pattern
+  - WebSocket support (if needed)
+  - Network error handling
+
+**Success Criteria**:
+- All modules initialize in priority order
+- Modules can be enabled/disabled via FrameworkConfig
+- Each module tested independently
+- No inter-module dependencies
+- Documentation complete
+
+---
+
+### [F-006] Phase 3: Example Implementation
+**Priority**: MEDIUM
+**Estimated Effort**: 12-18 hours
+**Status**: PENDING
+**Dependencies**: [F-004], [F-005]
+
+**Objective**: Create a complete example RPG to demonstrate all 6 layers working together.
+
+**Tasks**:
+
+#### Data Layer
+- [ ] `ItemData.cs` - Item data structure
+  - Basic properties (Id, Name, Type)
+  - Stats (Attack, Defense, CritRate)
+  - Validation logic
+- [ ] `PlayerData.cs` - Player data structure
+  - Character properties (Level, HP, MP)
+  - Stats and equipment
+  - Validation logic
+
+#### Domain Layer
+- [ ] `ItemDomain.cs` - Item domain logic
+  - Load items from JSON/CSV
+  - Calculate final stats (base + modifiers)
+  - Cache item data
+- [ ] `PlayerStatsDomain.cs` - Player stats domain logic
+  - Load player data
+  - Calculate combat stats
+  - Level up calculations
+
+#### Interface Layer
+- [ ] `IInventorySystem.cs` - Inventory interface
+  - AddItem, RemoveItem, GetItem methods
+  - Define inventory operations contract
+- [ ] `IBattleSystem.cs` - Battle interface
+  - Attack, Defend, UseSkill methods
+  - Define battle operations contract
+
+#### Service Layer
+- [ ] `InventoryService.cs` - Inventory service
+  - Implement IInventorySystem
+  - Use ItemDomain for data
+  - Publish ItemAdded/Removed events
+  - Manage inventory state
+- [ ] `BattleService.cs` - Battle service
+  - Implement IBattleSystem
+  - Use PlayerStatsDomain for calculations
+  - Publish battle events
+  - Manage combat state
+
+#### Gameplay Layer
+- [ ] `PlayerController.cs` - Player controller
+  - Extend BaseGameplay
+  - Use InventoryService and BattleService
+  - Subscribe to relevant events
+  - Handle player input
+
+#### Events
+- [ ] `ItemAddedEvent.cs` - Item added event
+- [ ] `PlayerDamagedEvent.cs` - Player damaged event
+
+**Integration Test**:
+- [ ] Create test scene with PlayerController
+- [ ] Test full pipeline: Input → Service → Domain → Data
+- [ ] Verify event flow and state management
+- [ ] Performance test (object pooling, caching)
+
+**Success Criteria**:
+- All 6 layers implemented and working
+- Complete data flow demonstrated (Gameplay → Service → Domain → Data)
+- Event bus communication verified
+- No circular dependencies
+- Example documented as tutorial
+
+---
+
+### [F-007] Phase 4: Documentation & Testing
+**Priority**: MEDIUM
+**Estimated Effort**: 6-8 hours
+**Status**: PENDING
+**Dependencies**: [F-004], [F-005], [F-006]
+
+**Objective**: Comprehensive documentation and testing for framework reliability.
+
+**Tasks**:
+
+#### Documentation
+- [ ] API Documentation
+  - Generate XML documentation for all public APIs
+  - Create API reference guide
+- [ ] Tutorial Documentation
+  - "Getting Started" tutorial
+  - "Creating a New Game" tutorial
+  - "Adding Custom Systems" tutorial
+- [ ] Architecture Documentation
+  - Update `.claude/framework/doc/systems/` with system guides
+  - Diagram generation for 6-layer architecture
+- [ ] Example Code Documentation
+  - Annotate example RPG implementation
+  - Create code walkthrough
+
+#### Unit Tests
+- [ ] Core Systems Tests
+  - EventBus Subscribe/Publish tests
+  - ServiceLocator Register/Get tests
+  - DataManager Domain management tests
+  - FrameworkLogger output tests
+- [ ] Module Tests
+  - UIModule canvas management tests
+  - AudioModule playback tests
+  - SceneModule loading tests
+
+#### Integration Tests
+- [ ] Lifecycle Tests
+  - Framework initialization order test
+  - Module priority test
+  - Shutdown cleanup test
+- [ ] System Integration Tests
+  - Service-Domain integration test
+  - Gameplay-Service integration test
+  - Event bus cross-layer test
+
+#### Performance Tests
+- [ ] Benchmark Tests
+  - EventBus performance test (1000+ events)
+  - ServiceLocator lookup performance
+  - Domain data caching effectiveness
+- [ ] Memory Tests
+  - Memory leak detection
+  - Object pooling verification
+
+**Success Criteria**:
+- >80% code coverage on core systems
+- All integration tests passing
+- Performance benchmarks documented
+- API documentation complete
+- Tutorial guides validated by following steps
 
 ---
 
