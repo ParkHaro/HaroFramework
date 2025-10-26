@@ -3,7 +3,7 @@ title: HaroFramework Progress Dashboard
 version: 3.0.0
 scope: framework
 created: 2025-10-26
-modified: 2025-10-26
+modified: 2025-10-27
 category: Progress Tracking
 tags: [progress, dashboard, metrics, tracking]
 paired_document: PROGRESS_KOR.md
@@ -11,8 +11,7 @@ parent_documents:
   - ./README.md
   - ../index.md
 child_documents: []
-references:
-  - ./phase1-core-foundation/README.md
+references: []
 status: active
 ---
 

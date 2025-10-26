@@ -1,7 +1,7 @@
 ---
 title: "[Game Name] Specification Template"
 version: 0.1.0
-layer: game
+scope: game
 created: 2025-10-25
 modified: 2025-10-25
 category: Project Management
@@ -13,7 +13,7 @@ child_documents:
   - ./TODO.md
 references:
   - ../../../framework/project/SPEC.md
-status: template
+status: draft
 ---
 
 

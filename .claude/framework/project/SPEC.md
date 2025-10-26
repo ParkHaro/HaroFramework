@@ -10,6 +10,7 @@ paired_document: SPEC_KOR.md
 parent_documents: []
 child_documents: []
 references: []
+status: approved
 ---
 
 

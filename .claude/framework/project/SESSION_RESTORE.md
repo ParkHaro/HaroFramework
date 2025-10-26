@@ -3,9 +3,13 @@ title: Session Restoration Guide
 version: 1.0.0
 scope: framework
 created: 2025-10-26
-modified: 2025-10-26
+modified: 2025-10-27
 category: Session Management
 tags: [session, restore, context, continuation]
+paired_document: ""
+parent_documents: []
+child_documents: []
+references: []
 status: active
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "[Game Name] TODO List Template"
 version: 0.1.0
-layer: game
+scope: game
 created: 2025-10-25
 modified: 2025-10-25
 category: Project Management
@@ -12,7 +12,7 @@ parent_documents:
 child_documents: []
 references:
   - ../../../framework/project/TODO.md
-status: template
+status: draft
 ---
 
 

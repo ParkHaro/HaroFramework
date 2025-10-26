@@ -1,3 +1,20 @@
+---
+title: Unity Game Framework Specification
+version: 1.0.0
+scope: framework
+created: 2025-10-25
+modified: 2025-10-27
+category: Reference
+tags: [framework, architecture, specification, unity]
+paired_document: ""
+parent_documents: []
+child_documents: []
+references: []
+status: approved
+---
+
+
+
 <!-- Navigation -->
 **🏠 [HaroFramework Project](../../../MASTER_INDEX.md)** | **📂 [Unity Framework Spec](./)** | **⬆️ [Unity Framework Spec](./)**
 

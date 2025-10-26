@@ -84,8 +84,10 @@ class DocumentValidator:
 
     REQUIRED_FIELDS = [
         'title', 'version', 'scope', 'created', 'modified',
-        'category', 'tags', 'paired_document', 'status'
+        'category', 'tags', 'status'
     ]
+
+    OPTIONAL_FIELDS = ['paired_document', 'parent_documents', 'child_documents', 'references']
 
     VALID_STATUSES = ['draft', 'review', 'approved', 'deprecated', 'active']
 

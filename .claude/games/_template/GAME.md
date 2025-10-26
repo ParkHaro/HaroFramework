@@ -1,7 +1,7 @@
 ---
 title: "[Game Name] Project Configuration"
 version: 0.1.0
-layer: game
+scope: game
 created: 2025-10-25
 modified: 2025-10-25
 category: Configuration
@@ -12,8 +12,8 @@ child_documents:
   - ./project/SPEC.md
   - ./project/TODO.md
 references:
-  - ../../framework/doc/architecture/layer-system.md
-status: template
+  - ../../framework/doc/architecture/scope-system.md
+status: draft
 ---
 
 
