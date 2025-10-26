@@ -3,6 +3,12 @@ description: Add Unity package to project
 argument-hint: <package-name>
 ---
 
+
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../MASTER_INDEX.md)** | **📂 [HaroFramework Commands Index](INDEX.md)** | **⬆️ [HaroFramework Commands Index](INDEX.md)**
+
+---
 Add a Unity package via Package Manager.
 
 Package: $ARGUMENTS

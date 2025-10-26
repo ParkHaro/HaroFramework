@@ -3,6 +3,12 @@ description: Build Unity project for specified platform
 argument-hint: [platform]
 ---
 
+
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../MASTER_INDEX.md)** | **📂 [HaroFramework Commands Index](INDEX.md)** | **⬆️ [HaroFramework Commands Index](INDEX.md)**
+
+---
 Build the Unity project for the target platform (Windows/Mac/Linux/Android/iOS/WebGL).
 
 Platform: $ARGUMENTS

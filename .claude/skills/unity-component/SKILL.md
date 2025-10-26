@@ -4,6 +4,12 @@ description: Create well-structured Unity MonoBehaviour components following Uni
 allowed-tools: Read, Write, Edit, Glob, Grep
 ---
 
+
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../../MASTER_INDEX.md)** | **📂 [Skill](./)** | **⬆️ [Skill](./)**
+
+---
 # Unity Component Builder
 
 Expert skill for creating production-ready Unity MonoBehaviour components.

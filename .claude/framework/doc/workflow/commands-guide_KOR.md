@@ -17,6 +17,11 @@ references:
 status: "approved"
 ---
 
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../../../MASTER_INDEX_KOR.md)** | **📂 [슬래시 명령 가이드](./)** | **⬆️ [HaroFramework 명세서](../../project/SPEC_KOR.md)**
+
+---
 # 슬래시 명령 가이드
 
 슬래시 명령은 `/command-name`을 입력하여 명시적으로 호출하는 **사용자 호출** 명령입니다.

@@ -24,6 +24,12 @@ references: []
 status: active
 ---
 
+
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../../../MASTER_INDEX.md)** | **📂 [HaroFramework SPEC Index](README.md)** | **⬆️ [HaroFramework Project Index](../index.md)**
+
+---
 # HaroFramework SPEC Index
 
 Complete project specification and architecture documentation organized into 10 major sections.

@@ -17,6 +17,11 @@ references:
 status: "approved"
 ---
 
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../../../MASTER_INDEX_KOR.md)** | **📂 [프로젝트 개요](./)** | **⬆️ [HaroFramework 명세서](../../project/SPEC_KOR.md)**
+
+---
 # 프로젝트 개요
 
 ## 프로젝트 정보

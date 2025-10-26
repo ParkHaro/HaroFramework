@@ -16,6 +16,11 @@ references:
 status: approved
 ---
 
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../../../MASTER_INDEX_KOR.md)** | **📂 [2-Scope 아키텍처 시스템](./)** | **⬆️ [HaroFramework 명세서](../../project/SPEC_KOR.md)**
+
+---
 # 2-Scope 아키텍처 시스템
 
 ## 개요

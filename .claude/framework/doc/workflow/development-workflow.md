@@ -18,6 +18,12 @@ references:
 status: "approved"
 ---
 
+
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../../../MASTER_INDEX.md)** | **📂 [Development Workflow](./)** | **⬆️ [HaroFramework Specification](../../project/SPEC.md)**
+
+---
 # Development Workflow
 
 ## Overview

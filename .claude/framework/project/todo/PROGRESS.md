@@ -16,6 +16,12 @@ references:
 status: active
 ---
 
+
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../../../MASTER_INDEX.md)** | **📂 [HaroFramework TODO Index](README.md)** | **⬆️ [HaroFramework TODO Index](README.md)**
+
+---
 # HaroFramework Progress Dashboard
 
 Real-time project progress tracking and metrics.

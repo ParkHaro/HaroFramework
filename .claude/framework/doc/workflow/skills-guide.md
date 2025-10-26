@@ -17,6 +17,12 @@ references:
 status: "approved"
 ---
 
+
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../../../MASTER_INDEX.md)** | **📂 [Skills Guide](./)** | **⬆️ [HaroFramework Specification](../../project/SPEC.md)**
+
+---
 # Skills Guide
 
 Skills are **model-invoked** capabilities that Claude automatically activates based on context.

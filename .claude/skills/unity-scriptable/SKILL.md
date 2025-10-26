@@ -4,6 +4,12 @@ description: Create Unity ScriptableObjects for data-driven design including gam
 allowed-tools: Read, Write, Edit, Glob, Grep
 ---
 
+
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../../MASTER_INDEX.md)** | **📂 [Skill](./)** | **⬆️ [Skill](./)**
+
+---
 # Unity ScriptableObject Builder
 
 Expert skill for creating production-ready Unity ScriptableObject assets for data-driven architecture.

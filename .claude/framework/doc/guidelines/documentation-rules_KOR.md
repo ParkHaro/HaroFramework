@@ -1,9 +1,9 @@
 ---
 title: 문서화 표준 및 규칙
-version: 1.0.0
+version: 1.1.0
 scope: framework
 created: 2025-10-25
-modified: 2025-10-25
+modified: 2025-10-26
 category: Guidelines
 tags: [documentation, standards, rules, workflow, bilingual]
 paired_document: documentation-rules.md
@@ -16,6 +16,11 @@ references:
 status: approved
 ---
 
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../../../MASTER_INDEX_KOR.md)** | **📂 [문서화 표준 및 규칙](./)** | **⬆️ [HaroFramework 명세서](../../project/SPEC_KOR.md)**
+
+---
 # 문서화 표준 및 규칙
 
 ## 개요
@@ -654,6 +659,63 @@ references:
 ```bash
 python .claude/scripts/doc_validate.py
 ```
+
+### 7.6 자동 네비게이션 시스템
+
+**목적**: 모든 문서 파일은 상단에 스마트 네비게이션을 포함하여 문서 간 탐색과 컨텍스트 인식을 용이하게 합니다.
+
+**네비게이션 구조**:
+```markdown
+<!-- Navigation -->
+🏠 [홈 제목](path/to/MASTER_INDEX.md) | 📂 [카테고리 제목](INDEX.md) | ⬆️ [부모 제목](parent.md)
+```
+
+**구성 요소**:
+1. **홈** (🏠): MASTER_INDEX.md (프로젝트 루트)로 연결
+2. **카테고리** (📂): 현재 디렉토리의 INDEX.md 또는 README.md로 연결
+3. **부모** (⬆️): 메타데이터의 `parent_documents` 필드에서 지정한 부모 문서로 연결
+
+**언어 지원**:
+- 영어 문서 → 영어 네비게이션 (MASTER_INDEX.md, INDEX.md)
+- 한국어 문서 → 한국어 네비게이션 (MASTER_INDEX_KOR.md, INDEX_KOR.md)
+
+**자동 생성**:
+
+네비게이션은 `add_navigation.py` 스크립트를 사용하여 자동 생성됩니다:
+
+```bash
+# 모든 문서에 적용
+python .claude/framework/scripts/add_navigation.py --apply-all
+
+# 특정 디렉토리에 적용
+python .claude/framework/scripts/add_navigation.py --dir .claude/commands/
+
+# 변경 사항 미리보기 (dry-run)
+python .claude/framework/scripts/add_navigation.py --apply-all --dry-run
+```
+
+**기능**:
+- YAML 메타데이터에서 실제 문서 제목 추출
+- 상대 경로 자동 계산
+- 이중언어 문서 (EN/_KOR) 별도 처리
+- 자동 백업을 통한 안전한 작업 (.md.bak)
+
+**업데이트 프로세스**:
+
+새 문서 생성 시:
+1. 적절한 메타데이터와 함께 문서 작성
+2. `add_navigation.py` 실행하여 네비게이션 생성
+3. 링크가 올바르게 작동하는지 확인
+
+문서 구조 수정 시:
+1. 메타데이터 업데이트 (특히 `parent_documents`)
+2. `add_navigation.py` 재실행하여 영향받는 모든 문서 업데이트
+3. `doc_validate.py`로 링크 검증
+
+**네비게이션 위치**:
+- YAML frontmatter 메타데이터 다음에 삽입
+- 메인 문서 제목 이전
+- `<!-- Navigation -->` 주석 마커로 감싸짐
 
 ---
 

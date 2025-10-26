@@ -3,6 +3,12 @@ description: Analyze Unity scene structure
 argument-hint: <scene-name>
 ---
 
+
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../MASTER_INDEX.md)** | **📂 [HaroFramework Commands Index](INDEX.md)** | **⬆️ [HaroFramework Commands Index](INDEX.md)**
+
+---
 Analyze a Unity scene file and report its structure.
 
 Scene: $ARGUMENTS

@@ -9,6 +9,12 @@ tags: [session, restore, context, continuation]
 status: active
 ---
 
+
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../../MASTER_INDEX.md)** | **📂 [HaroFramework Project Index](INDEX.md)** | **⬆️ [HaroFramework Project Index](INDEX.md)**
+
+---
 # Session Restoration Guide
 
 **Session Date**: 2025-10-26

@@ -16,6 +16,11 @@ references:
 status: template
 ---
 
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../../../MASTER_INDEX_KOR.md)** | **📂 [[게임명] 명세서 템플릿](./)** | **⬆️ [[게임명] 프로젝트 설정](../GAME_KOR.md)**
+
+---
 # [게임명] 명세서
 
 _이 파일은 템플릿입니다. 새 게임 프로젝트 생성 시 복사하고 커스터마이즈하세요._

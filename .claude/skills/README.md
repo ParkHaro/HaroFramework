@@ -1,3 +1,9 @@
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../MASTER_INDEX.md)** | **📂 [HaroFramework Skills Index](INDEX.md)** | **⬆️ [HaroFramework Skills Index](INDEX.md)**
+
+---
+
+
 # Claude Code Skills for HaroFramework
 
 This directory contains **Skills** for Claude Code to enhance Unity development workflows.

@@ -3,6 +3,12 @@ description: Create Assembly Definition file
 argument-hint: <AssemblyName> [Runtime|Editor|Tests]
 ---
 
+
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../MASTER_INDEX.md)** | **📂 [HaroFramework Commands Index](INDEX.md)** | **⬆️ [HaroFramework Commands Index](INDEX.md)**
+
+---
 Create an Assembly Definition (.asmdef) file to organize code and improve compilation times.
 
 Assembly name: $1

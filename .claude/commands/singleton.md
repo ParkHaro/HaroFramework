@@ -3,6 +3,12 @@ description: Create a singleton MonoBehaviour pattern
 argument-hint: <ClassName>
 ---
 
+
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../MASTER_INDEX.md)** | **📂 [HaroFramework Commands Index](INDEX.md)** | **⬆️ [HaroFramework Commands Index](INDEX.md)**
+
+---
 Create a thread-safe singleton MonoBehaviour pattern.
 
 Class name: $ARGUMENTS

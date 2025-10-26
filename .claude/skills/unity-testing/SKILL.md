@@ -4,6 +4,12 @@ description: Create Unity Test Framework tests including EditMode tests, PlayMod
 allowed-tools: Read, Write, Edit, Glob, Grep
 ---
 
+
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../../MASTER_INDEX.md)** | **📂 [Skill](./)** | **⬆️ [Skill](./)**
+
+---
 # Unity Testing Framework Expert
 
 Expert skill for creating comprehensive automated tests using Unity Test Framework (UTF).

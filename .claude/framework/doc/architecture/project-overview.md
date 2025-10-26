@@ -17,6 +17,12 @@ references:
 status: "approved"
 ---
 
+
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../../../MASTER_INDEX.md)** | **📂 [Project Overview](./)** | **⬆️ [HaroFramework Specification](../../project/SPEC.md)**
+
+---
 # Project Overview
 
 ## Project Information

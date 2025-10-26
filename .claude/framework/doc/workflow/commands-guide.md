@@ -17,6 +17,12 @@ references:
 status: "approved"
 ---
 
+
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../../../MASTER_INDEX.md)** | **📂 [Slash Commands Guide](./)** | **⬆️ [HaroFramework Specification](../../project/SPEC.md)**
+
+---
 # Slash Commands Guide
 
 Slash commands are **user-invoked** commands that you explicitly call by typing `/command-name`.

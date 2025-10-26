@@ -4,6 +4,12 @@ description: Create Unity Editor extensions including custom inspectors, propert
 allowed-tools: Read, Write, Edit, Glob, Grep
 ---
 
+
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../../MASTER_INDEX.md)** | **📂 [Skill](./)** | **⬆️ [Skill](./)**
+
+---
 # Unity Editor Extension Builder
 
 Expert skill for creating Unity Editor scripts that enhance the development workflow.

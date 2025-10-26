@@ -1,3 +1,9 @@
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../../MASTER_INDEX.md)** | **📂 [Readme](README.md)** | **⬆️ [Readme](README.md)**
+
+---
+
+
 # HaroFramework Documentation Automation Scripts
 
 Automation scripts for maintaining HaroFramework documentation quality and consistency.

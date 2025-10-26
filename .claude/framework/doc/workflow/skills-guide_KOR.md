@@ -17,6 +17,11 @@ references:
 status: "approved"
 ---
 
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../../../MASTER_INDEX_KOR.md)** | **📂 [스킬 가이드](./)** | **⬆️ [HaroFramework 명세서](../../project/SPEC_KOR.md)**
+
+---
 # 스킬 가이드
 
 스킬은 Claude가 컨텍스트를 기반으로 자동으로 활성화하는 **모델 호출** 기능입니다.

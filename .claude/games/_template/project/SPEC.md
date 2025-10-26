@@ -16,6 +16,12 @@ references:
 status: template
 ---
 
+
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../../../MASTER_INDEX.md)** | **📂 [[Game Name] Specification Template](./)** | **⬆️ [[Game Name] Project Configuration](../GAME.md)**
+
+---
 # [Game Name] Specification
 
 _This is a template file. Copy and customize when creating a new game project._

@@ -4,6 +4,12 @@ description: Create Unity shaders using Shader Graph, HLSL, or ShaderLab for Uni
 allowed-tools: Read, Write, Edit, Glob, Grep
 ---
 
+
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../../MASTER_INDEX.md)** | **📂 [Skill](./)** | **⬆️ [Skill](./)**
+
+---
 # Unity Shader Expert
 
 Expert skill for creating shaders in Unity's Universal Render Pipeline (URP).

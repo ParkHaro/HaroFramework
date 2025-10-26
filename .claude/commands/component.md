@@ -3,6 +3,12 @@ description: Create a new MonoBehaviour component
 argument-hint: <ComponentName> [namespace]
 ---
 
+
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../MASTER_INDEX.md)** | **📂 [HaroFramework Commands Index](INDEX.md)** | **⬆️ [HaroFramework Commands Index](INDEX.md)**
+
+---
 Create a well-structured Unity MonoBehaviour component.
 
 Component: $1

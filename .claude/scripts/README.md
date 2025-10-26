@@ -15,6 +15,12 @@ references:
 status: draft
 ---
 
+
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../MASTER_INDEX.md)** | **📂 [Documentation Scripts Guide](README.md)** | **⬆️ [HaroFramework Specification](../framework/project/SPEC.md)**
+
+---
 # Documentation Scripts Guide
 
 _This document is under construction._

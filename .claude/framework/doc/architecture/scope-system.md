@@ -16,6 +16,12 @@ references:
 status: approved
 ---
 
+
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../../../MASTER_INDEX.md)** | **📂 [2-Scope Architecture System](./)** | **⬆️ [HaroFramework Specification](../../project/SPEC.md)**
+
+---
 # 2-Scope Architecture System
 
 ## Overview

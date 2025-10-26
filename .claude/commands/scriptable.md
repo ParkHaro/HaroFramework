@@ -3,6 +3,12 @@ description: Create a ScriptableObject asset class
 argument-hint: <ClassName> [namespace]
 ---
 
+
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../MASTER_INDEX.md)** | **📂 [HaroFramework Commands Index](INDEX.md)** | **⬆️ [HaroFramework Commands Index](INDEX.md)**
+
+---
 Create a ScriptableObject class for data-driven design.
 
 Class name: $1

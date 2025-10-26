@@ -17,6 +17,12 @@ references:
 status: "approved"
 ---
 
+
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../../../MASTER_INDEX.md)** | **📂 [Coding Conventions](./)** | **⬆️ [HaroFramework Specification](../../project/SPEC.md)**
+
+---
 # Coding Conventions
 
 ## Namespace Organization

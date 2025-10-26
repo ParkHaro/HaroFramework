@@ -3,6 +3,12 @@ description: Create Input System action map
 argument-hint: <ActionMapName>
 ---
 
+
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../MASTER_INDEX.md)** | **📂 [HaroFramework Commands Index](INDEX.md)** | **⬆️ [HaroFramework Commands Index](INDEX.md)**
+
+---
 Create a new Input Action asset for Unity's Input System.
 
 Action Map Name: $ARGUMENTS

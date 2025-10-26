@@ -1,3 +1,9 @@
+<!-- Navigation -->
+**🏠 [HaroFramework Project](MASTER_INDEX.md)** | **📂 [Readme](README.md)** | **⬆️ [Readme](README.md)**
+
+---
+
+
 # .claude Directory
 
 Claude Code configuration for **HaroFramework** Unity project.

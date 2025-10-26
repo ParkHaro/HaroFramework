@@ -1,9 +1,9 @@
 ---
 title: Documentation Standards and Rules
-version: 1.0.0
+version: 1.1.0
 scope: framework
 created: 2025-10-25
-modified: 2025-10-25
+modified: 2025-10-26
 category: Guidelines
 tags: [documentation, standards, rules, workflow, bilingual]
 paired_document: documentation-rules_KOR.md
@@ -16,6 +16,12 @@ references:
 status: approved
 ---
 
+
+
+<!-- Navigation -->
+**🏠 [HaroFramework Project](../../../MASTER_INDEX.md)** | **📂 [Documentation Standards and Rules](./)** | **⬆️ [HaroFramework Specification](../../project/SPEC.md)**
+
+---
 # Documentation Standards and Rules
 
 ## Overview
@@ -654,6 +660,63 @@ Use `doc_validate.py` to verify:
 ```bash
 python .claude/scripts/doc_validate.py
 ```
+
+### 7.6 Automatic Navigation System
+
+**Purpose**: Every documentation file includes smart navigation at the top for easy discovery and context awareness.
+
+**Navigation Structure**:
+```markdown
+<!-- Navigation -->
+🏠 [Home Title](path/to/MASTER_INDEX.md) | 📂 [Category Title](INDEX.md) | ⬆️ [Parent Title](parent.md)
+```
+
+**Components**:
+1. **Home** (🏠): Links to MASTER_INDEX.md (project root)
+2. **Category** (📂): Links to INDEX.md or README.md in current directory
+3. **Parent** (⬆️): Links to parent document from metadata's `parent_documents` field
+
+**Language Support**:
+- English documents → English navigation (MASTER_INDEX.md, INDEX.md)
+- Korean documents → Korean navigation (MASTER_INDEX_KOR.md, INDEX_KOR.md)
+
+**Automatic Generation**:
+
+Navigation is automatically generated using the `add_navigation.py` script:
+
+```bash
+# Apply to all documents
+python .claude/framework/scripts/add_navigation.py --apply-all
+
+# Apply to specific directory
+python .claude/framework/scripts/add_navigation.py --dir .claude/commands/
+
+# Preview changes (dry-run)
+python .claude/framework/scripts/add_navigation.py --apply-all --dry-run
+```
+
+**Features**:
+- Extracts real document titles from YAML metadata
+- Calculates relative paths automatically
+- Handles bilingual documents (EN/_KOR) separately
+- Safe operations with automatic backup (.md.bak)
+
+**Update Process**:
+
+When creating new documents:
+1. Write document with proper metadata
+2. Run `add_navigation.py` to generate navigation
+3. Verify links work correctly
+
+When modifying document structure:
+1. Update metadata (especially `parent_documents`)
+2. Re-run `add_navigation.py` to update all affected documents
+3. Validate links with `doc_validate.py`
+
+**Navigation Location**:
+- Inserted after YAML frontmatter metadata
+- Before main document title
+- Enclosed in `<!-- Navigation -->` comment marker
 
 ---
 
