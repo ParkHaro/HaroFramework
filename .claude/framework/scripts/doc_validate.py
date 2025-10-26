@@ -83,7 +83,7 @@ class DocumentValidator:
     """Validates documentation metadata and links"""
 
     REQUIRED_FIELDS = [
-        'title', 'version', 'layer', 'created', 'modified',
+        'title', 'version', 'scope', 'created', 'modified',
         'category', 'tags', 'paired_document', 'status'
     ]
 
@@ -166,6 +166,10 @@ class DocumentValidator:
         for md_file in claude_dir.rglob('*.md'):
             # Skip Korean translations
             if md_file.stem.endswith('_KOR'):
+                continue
+
+            # Skip commands and skills folders (different metadata structure)
+            if 'commands' in md_file.parts or 'skills' in md_file.parts:
                 continue
 
             # Skip certain files
