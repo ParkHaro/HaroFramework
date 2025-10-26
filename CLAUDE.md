@@ -23,6 +23,11 @@ HaroFramework uses a **strict 2-scope architecture**:
 
 ### Framework Documentation (MUST READ)
 
+**Start Here** (Navigation & Planning):
+- **`.claude/MASTER_INDEX.md`** - Complete documentation catalog and navigation hub
+- **`framework/project/QUICK_START.md`** - Scenario-based checklists for 10 common tasks
+- **`framework/project/READING_GUIDE.md`** - Token optimization strategies (30-50% savings)
+
 **Before starting any work, read these documents from `.claude/framework/doc/`:**
 
 #### Architecture & Guidelines (Read First)
@@ -147,35 +152,45 @@ Assets/Scripts/
 
 ### Framework Documentation (NEW STRUCTURE)
 ```
-.claude/framework/
-├── project/
-│   ├── SPEC.md                         # Project specification
-│   ├── SPEC_KOR.md                     # Korean translation
-│   ├── TODO.md                         # Task tracking
-│   └── TODO_KOR.md                     # Korean translation
-├── doc/
-│   ├── architecture/
-│   │   ├── scope-system.md             # 2-scope architecture
-│   │   ├── scope-system_KOR.md
-│   │   ├── project-overview.md         # Project structure
-│   │   └── project-overview_KOR.md
-│   ├── guidelines/
-│   │   ├── coding-conventions.md       # Code standards
-│   │   ├── coding-conventions_KOR.md
-│   │   ├── documentation-rules.md      # Documentation system
-│   │   └── documentation-rules_KOR.md
-│   └── workflow/
-│       ├── development-workflow.md     # Development process
-│       ├── development-workflow_KOR.md
-│       ├── skills-guide.md             # Skills reference
-│       ├── skills-guide_KOR.md
-│       ├── commands-guide.md           # Commands reference
-│       └── commands-guide_KOR.md
-└── scripts/                            # Automation scripts (TBD)
-    ├── scope_validate.py
-    ├── doc_validate.py
-    ├── doc_sync.py
-    └── version_bump.py
+.claude/
+├── MASTER_INDEX.md                     # 📌 Main documentation hub
+├── MASTER_INDEX_KOR.md                 # Korean translation
+├── commands/                           # Manual slash commands
+│   ├── INDEX.md                        # Commands index
+│   └── ...
+├── skills/                             # Auto-activated AI skills
+│   ├── INDEX.md                        # Skills index
+│   └── ...
+└── framework/
+    ├── project/
+    │   ├── index.md                    # Project index
+    │   ├── SPEC.md                     # Project specification
+    │   ├── TODO.md                     # Task tracking
+    │   ├── QUICK_START.md              # 📌 10 scenario checklists
+    │   ├── READING_GUIDE.md            # 📌 Token optimization guide
+    │   ├── SESSION_RESTORE.md          # Session restoration guide
+    │   ├── spec/                       # Detailed specifications
+    │   └── todo/                       # Task breakdown
+    ├── doc/
+    │   ├── INDEX.md                    # Documentation index
+    │   ├── architecture/
+    │   │   ├── scope-system.md         # 2-scope architecture
+    │   │   └── project-overview.md     # Project structure
+    │   ├── guidelines/
+    │   │   ├── coding-conventions.md   # Code standards
+    │   │   └── documentation-rules.md  # Documentation system (with navigation)
+    │   └── workflow/
+    │       ├── development-workflow.md # Development process
+    │       ├── skills-guide.md         # Skills reference
+    │       └── commands-guide.md       # Commands reference
+    └── scripts/                        # Automation scripts
+        ├── scope_validate.py
+        ├── doc_validate.py
+        ├── doc_sync.py
+        ├── add_navigation.py           # 📌 Navigation generator
+        └── version_bump.py
+
+Note: All .md files have paired _KOR.md translations
 ```
 
 ### Game Projects (Future)
